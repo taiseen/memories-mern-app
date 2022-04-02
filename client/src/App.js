@@ -15,6 +15,8 @@ function App() {
 
 
   useEffect(() => {
+    // this call is so important... 
+    // for loading 1st data in ui...
     dispatch(getAllPost());
   }, [currentId, dispatch]);
 

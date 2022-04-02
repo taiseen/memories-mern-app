@@ -8,7 +8,6 @@ export const getPost = async (req, res) => {
         res.status(200).json(postMessage);
     } catch (error) {
         res.status(404).json(error);
-        console.log(error);
     }
 }
 
@@ -22,7 +21,7 @@ export const createPost = async (req, res) => {
         await newPost.save();
         res.status(201).json(newPost);
     } catch (error) {
-        res.status(209).json(error);
+        res.status(409).json(error);
     }
 }
 

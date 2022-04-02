@@ -34,8 +34,6 @@ const Form = ({ currentId, setCurrentId }) => {
     }
 
     clear();
-
-    console.table(postData)
   }
 
   // collect user input values...
@@ -45,7 +43,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
   const clear = () => {
     setCurrentId(null);
-    setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: null });
+    setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
   }
 
   return (
@@ -60,7 +58,7 @@ const Form = ({ currentId, setCurrentId }) => {
         <TextField fullWidth variant='outlined' name='title' label='Title' value={postData.title} onChange={handleChange} />
         <TextField fullWidth variant='outlined' name='message' label='Message' value={postData.message} onChange={handleChange} />
         <TextField fullWidth variant='outlined' name='tags' label='Tags' value={postData.tags}
-          onChange={e => setPostData({ ...postData, tags: e.target.value.split(',') })} />
+          onChange={e => setPostData({ ...postData, tags: e.target.value.split(',').map(tag=>tag.trim()) })} />
 
         <div className={classes.fileInput}>
           <FileBase type='file' multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />

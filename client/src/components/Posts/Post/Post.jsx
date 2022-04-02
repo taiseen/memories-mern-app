@@ -7,6 +7,7 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import useStyles from './styles';
 import moment from 'moment';
 
+
 const Post = ({ post, setCurrentId }) => {
 
   const classes = useStyles();
@@ -37,7 +38,6 @@ const Post = ({ post, setCurrentId }) => {
       <div className={classes.details}>
         <Typography variant="body2" color="textSecondary" component="h2">
           {tags.map(tag => `#${tag} `)}
-          {/* {tags.split(',').map(tag => `#${tag} `)} */} 
         </Typography>
       </div>
 

@@ -6,8 +6,8 @@ import { Grid, CircularProgress } from '@material-ui/core';
 
 const Posts = ({ setCurrentId }) => {
 
-  // redux read operation...
-  const posts = useSelector(state => state.posts);
+  // redux read operation... get all posts
+  const posts = useSelector(state => state.posts); 
   const classes = useStyles();
 
   return (
