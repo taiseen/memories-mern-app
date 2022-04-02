@@ -6,4 +6,4 @@ server/node_modules/
 client/build/
 
 # info file
-server/.env
+.env
