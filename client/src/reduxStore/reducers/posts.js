@@ -15,7 +15,7 @@ export const posts = (posts = [], { type, data }) => {
 
         case FETCH_ALL:
             return data;
-            
+
         default:
             return posts;
     }

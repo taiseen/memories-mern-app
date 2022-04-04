@@ -2,6 +2,10 @@ import { FETCH_ALL, CREATE, UPDATE, DELETE } from '../../constants/actionTypes';
 import * as api from '../api';
 
 
+// all actions/events toward our backend are going to be done using redux
+// we need to dispatch those actions... from needful components...
+
+
 // Action Creators are Function that return function...
 export const getAllPost = () => async (dispatch) => {
 
@@ -42,6 +46,7 @@ export const deletePost = (id) => async (dispatch) => {
         if (window.confirm("🔴 Are you sure to delete it? 🔴")) {
             await api.deletePost(id);
             dispatch({ type: DELETE, data: id });
+            console.log("Can delete...");
         } else {
             console.log("Can't delete...");
         }
@@ -54,8 +59,9 @@ export const deletePost = (id) => async (dispatch) => {
 export const likePost = (id) => async (dispatch) => {
 
     try {
-        const { data } = await api.likePost(id);
+        const { data } = await api.likePost(id); 
         dispatch({ type: UPDATE, data });
+        console.log(data)
     } catch (error) {
         console.log(error);
     }

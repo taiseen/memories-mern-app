@@ -28,7 +28,8 @@ server side ==> yarn + yarn start
 | 7| yarn add `@material-ui/core`   | designing UI of app                       |
 | 8| yarn add `@material-ui/icons`  | icon's for designing UI                   |
 | 9| yarn add `react-google-login`  | google login info support                 |
-|10| npm install `react-file-base64`| convert images into string                |
+|10| yarn add `jwt-decode`          | helps decoding JWTs token                 |
+|11| npm install `react-file-base64`| convert images into string                |
 
 
 yarn add 
@@ -44,6 +45,9 @@ yarn add
 |4 | yarn add `mongoose`    | creating DB modals for POST-ing data          |
 |5 | yarn add `nodemon`     | changing happen, server restart automatically |
 |6 | yarn add `dotenv`      | hide the confidential data from public        |
+|7 | yarn add `bcryptjs`    | hashing function for password security        |
+|8 | yarn add `jsonwebtoken`| share security information between two parties|
 
 
 Background Resource : https://www.svgbackgrounds.com 
+

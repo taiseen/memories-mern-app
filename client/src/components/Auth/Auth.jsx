@@ -14,7 +14,7 @@ const initialState = { firstName: '', lastName: '', email: '', password: '', con
 
 const SignUp = () => {
 
-  const [form, setForm] = useState(initialState);
+  const [userInfo, setUserInfo] = useState(initialState);
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
@@ -24,7 +24,7 @@ const SignUp = () => {
 
 
   const switchMode = () => {
-    setForm(initialState);
+    setUserInfo(initialState);
     setIsSignUp(prevIsSignUp => !prevIsSignUp);
     setShowPassword(false);
   }
@@ -34,9 +34,9 @@ const SignUp = () => {
     e.preventDefault();
 
     if (isSignUp) {
-      dispatch(signUp(form, navigate));
+      dispatch(signUp(userInfo, navigate));
     } else {
-      dispatch(signIn(form, navigate));
+      dispatch(signIn(userInfo, navigate));
     }
   }
 
@@ -55,10 +55,10 @@ const SignUp = () => {
 
   const googleError = () => alert('🔴 Google Sign In was unsuccessful.\n🔴 Try again later...');
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
 
-  
-   
+
+
   return (
     <Container component="main" maxWidth="xs">
 
@@ -79,7 +79,7 @@ const SignUp = () => {
             {
               isSignUp && (
                 <>
-                  <Input name="firstName" label="First Name" handleChange={handleChange} half autoFocus />
+                  <Input name="firstName" label="First Name" handleChange={handleChange} half />
                   <Input name="lastName" label="Last Name" handleChange={handleChange} half />
                 </>
               )
