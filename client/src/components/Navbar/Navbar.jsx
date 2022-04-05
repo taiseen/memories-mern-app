@@ -9,6 +9,7 @@ import decode from 'jwt-decode';
 
 const Navbar = () => {
 
+    // get user info from localStorage that server send as jwt(jsonWebToken)
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const dispatch = useDispatch();
     const location = useLocation();
@@ -23,8 +24,9 @@ const Navbar = () => {
         setUser(null);
     };
 
-    
+
     useEffect(() => {
+        // ger user token for automatic logout after some time 
         const token = user?.token;
 
         if (token) {
@@ -34,6 +36,9 @@ const Navbar = () => {
         }
 
         setUser(JSON.parse(localStorage.getItem('profile')));
+
+        
+        // if location change, reload this component again...
     }, [location]);
 
 

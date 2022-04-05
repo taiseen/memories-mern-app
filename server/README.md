@@ -1,6 +1,6 @@
 31 March 2022 
 
-# Server Site
+# Server Site ==> Dependencies...
 
 |No| Package Installs       | Use for                                       |
 |--|------------------------|-----------------------------------------------|
@@ -10,7 +10,11 @@
 |4 | yarn add `mongoose`    | creating DB modals for POST-ing data          |
 |5 | yarn add `nodemon`     | changing happen, server restart automatically |
 |6 | yarn add `dotenv`      | hide the confidential data from public        |
+|7 | yarn add `bcryptjs`    | hashing function for password security        |
+|8 | yarn add `jsonwebtoken`| share security information between two parties|
 
+
+<br />
 
 # Heroku
 

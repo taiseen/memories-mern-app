@@ -5,7 +5,6 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import postRoutes from './routes/posts.js';
 import userRoutes from './routes/users.js';
-// import { postRoutes, userRoutes } from './routes/index.js';
 
 
 const app = express();
@@ -30,8 +29,9 @@ mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnified
 // http://localhost:5000/posts
 app.use('/posts', postRoutes);
 app.use('/users', userRoutes);
+// express middleware for using routes File...
 
 
 app.get('/', (req, res) => {
-    res.send("Hello from Moment's app");
+    res.send("Hello... from (Backend) Moment's app... 😎👋");
 });

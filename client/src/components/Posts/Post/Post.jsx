@@ -15,7 +15,9 @@ const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
   const { title, name, createdAt, _id, selectedFile, tags, message } = post;
 
+  // get user info from localStorage that server send as jwt(jsonWebToken)
   const user = JSON.parse(localStorage.getItem('profile'));
+
 
   const Likes = () => {
     if (post.likes.length > 0) {
@@ -40,6 +42,8 @@ const Post = ({ post, setCurrentId }) => {
     return <><ThumbUpAltOutlined fontSize="small" />&nbsp;Like</>;
   };
 
+
+
   return (
     <Card className={classes.card}>
 
@@ -56,6 +60,7 @@ const Post = ({ post, setCurrentId }) => {
       </div>
 
 
+      {/* show EDIT Button as for only Current User Login at system... */}
       <div className={classes.overlay2}>
         {
           (user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
@@ -73,7 +78,9 @@ const Post = ({ post, setCurrentId }) => {
         </Typography>
       </div>
 
+
       <Typography className={classes.title} gutterBottom variant="h5" component="h2">{title}</Typography>
+
 
       <CardContent className={classes.message} >
         <Typography variant="body2" color="textSecondary" component="p">
@@ -81,16 +88,19 @@ const Post = ({ post, setCurrentId }) => {
         </Typography>
       </CardContent>
 
+
       <CardActions className={classes.cardActions}>
 
+        {/* if no User Login at system, disable Like Button... */}
         <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePost(_id))}>
           <Likes />
         </Button>
 
+        {/* show Delete Button as for only Current User Login at system... */}
         {
           (user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
             <Button size="small" color="primary" onClick={() => dispatch(deletePost(_id))}>
-              <DeleteIcon fontSize="small" /> Delete</Button>
+              <DeleteIcon fontSize="small" /> Delete </Button>
           )
         }
 

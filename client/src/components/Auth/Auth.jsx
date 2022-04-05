@@ -22,7 +22,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const classes = useStyles();
 
-
+  // signIn to signUp toggling function...
   const switchMode = () => {
     setUserInfo(initialState);
     setIsSignUp(prevIsSignUp => !prevIsSignUp);
@@ -40,6 +40,7 @@ const SignUp = () => {
     }
   }
 
+
   const googleSuccess = async (res) => {
 
     const result = res?.profileObj;
@@ -53,7 +54,12 @@ const SignUp = () => {
     }
   }
 
-  const googleError = () => alert('🔴 Google Sign In was unsuccessful.\n🔴 Try again later...');
+
+  const googleError = async (response) => {
+    console.log(response)
+    alert('🔴 Google Sign In was unsuccessful.\n🔴 Try again later...');
+  }
+
 
   const handleChange = (e) => setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
 

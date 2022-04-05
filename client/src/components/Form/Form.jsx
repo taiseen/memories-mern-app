@@ -10,7 +10,11 @@ const Form = ({ currentId, setCurrentId }) => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  // get that specific post, which user click on Edit Button...
   const post = useSelector(state => currentId && state.posts.find(p => p._id === currentId));
+
+  // get user info from localStorage that server send as jwt(jsonWebToken)
   const user = JSON.parse(localStorage.getItem('profile'));
 
   const [postData, setPostData] = useState({
@@ -18,12 +22,13 @@ const Form = ({ currentId, setCurrentId }) => {
   });
 
 
+
   useEffect(() => {
     if (post) setPostData(post);
   }, [post]);
 
 
-  // values send to the server...
+  // values send to the server... through the help of redux action creator...
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -33,11 +38,14 @@ const Form = ({ currentId, setCurrentId }) => {
       dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
     }
 
+    // clear all user input values form (ui) input field, after user submit these value into server...
     clear();
   }
 
   // collect user input values...
   const handleChange = (e) => {
+
+    // hold previous value of an object + update current edited/input values...
     setPostData({ ...postData, [e.target.name]: e.target.value })
   }
 
@@ -45,6 +53,7 @@ const Form = ({ currentId, setCurrentId }) => {
     setCurrentId(null);
     setPostData({ title: '', message: '', tags: '', selectedFile: '' });
   }
+
 
 
   if (!user?.result?.name) {
@@ -68,7 +77,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
         <TextField fullWidth variant='outlined' name='title' label='Title' value={postData.title} onChange={handleChange} />
         <TextField fullWidth variant='outlined' name='message' label='Message' value={postData.message} onChange={handleChange} />
-        <TextField fullWidth variant='outlined' name='tags' label='Tags' value={postData.tags}
+        <TextField fullWidth variant='outlined' name='tags' label="Tags (coma separated)" value={postData.tags}
           onChange={e => setPostData({ ...postData, tags: e.target.value.split(',').map(tag => tag.trim()) })} />
 
         <div className={classes.fileInput}>

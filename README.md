@@ -13,9 +13,7 @@ client side ==> yarn + yarn start (1 app npm base)
 server side ==> yarn + yarn start 
 ```
 
-## Necessary Dependencies
-
-# Client Site
+# Client Site ==> Dependencies...
 
 |No| Package Installs       | Usage of                                          |
 |--|------------------------|---------------------------------------------------|
@@ -35,7 +33,7 @@ server side ==> yarn + yarn start
 yarn add 
 <br/>
 
-# Server Site
+# Server Site ==> Dependencies...
 
 |No| Package Installs       | Use for                                       |
 |--|------------------------|-----------------------------------------------|
@@ -49,5 +47,4 @@ yarn add
 |8 | yarn add `jsonwebtoken`| share security information between two parties|
 
 
-Background Resource : https://www.svgbackgrounds.com 
-
+Background Resource : https://www.svgbackgrounds.com

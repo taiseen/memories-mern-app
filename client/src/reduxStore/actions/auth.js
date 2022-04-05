@@ -10,7 +10,6 @@ export const signIn = (formData, navigate) => async (dispatch) => {
 
     navigate('/');
   } catch (error) {
-    // alert(error.message)
     console.log(error);
   }
 }

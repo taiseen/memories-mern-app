@@ -6,7 +6,7 @@ import { Grid, CircularProgress } from '@material-ui/core';
 
 const Posts = ({ setCurrentId }) => {
 
-  // redux read operation... get all posts
+  // redux read operation... get all posts from reducer | redux global store...
   const posts = useSelector(state => state.posts); 
   const classes = useStyles();
 
