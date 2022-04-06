@@ -14,7 +14,7 @@ const Form = ({ currentId, setCurrentId }) => {
   // get that specific post, which user click on Edit Button...
   const post = useSelector(state => currentId && state.posts.find(p => p._id === currentId));
 
-  // get user info from localStorage that server send as jwt(jsonWebToken)
+  // get user info from localStorage that server send as jwt( jsonWebToken)
   const user = JSON.parse(localStorage.getItem('profile'));
 
   const [postData, setPostData] = useState({
