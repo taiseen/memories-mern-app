@@ -1,6 +1,6 @@
+import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import { AUTH } from '../../constants/actionTypes';
@@ -10,7 +10,15 @@ import useStyles from './styles';
 import Input from './Input';
 import Icon from './icon';
 
-const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
+
+const initialState = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  confirmPassword: ''
+};
+
 
 const SignUp = () => {
 
@@ -102,6 +110,7 @@ const SignUp = () => {
 
           </Grid>
 
+
           <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
             {isSignUp ? 'Sign Up' : 'Sign In'}
           </Button>
@@ -110,17 +119,18 @@ const SignUp = () => {
           <GoogleLogin
             clientId="16518181149-01jum6i83a2kkj3jk1s8mmbiq2hch8v5.apps.googleusercontent.com"
 
-            render={renderProps => (
-              <Button
-                onClick={renderProps.onClick}
-                disabled={renderProps.disabled}
-                className={classes.googleButton}
-                startIcon={<Icon />}
-                color="primary"
-                variant="contained"
-                fullWidth
-              > Google Sign In </Button>
-            )}
+            render={
+              renderProps => (
+                <Button
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                  className={classes.googleButton}
+                  startIcon={<Icon />}
+                  color="primary"
+                  variant="contained"
+                  fullWidth
+                > Google Sign In </Button>
+              )}
 
             onSuccess={googleSuccess}
             onFailure={googleError}
@@ -141,6 +151,7 @@ const SignUp = () => {
           </Grid>
 
         </form>
+
       </Paper>
 
     </Container>

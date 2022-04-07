@@ -10,7 +10,7 @@ import decode from 'jwt-decode';
 const Navbar = () => {
 
     // get user info from localStorage that server send as jwt(jsonWebToken)
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const [logInUser, setLogInUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const dispatch = useDispatch();
     const location = useLocation();
     const navigate = useNavigate();
@@ -21,13 +21,13 @@ const Navbar = () => {
 
         navigate('/auth');
 
-        setUser(null);
+        setLogInUser(null);
     };
 
 
     useEffect(() => {
         // ger user token for automatic logout after some time 
-        const token = user?.token;
+        const token = logInUser?.token;
 
         if (token) {
             const decodedToken = decode(token);
@@ -35,7 +35,7 @@ const Navbar = () => {
             if (decodedToken.exp * 1000 < new Date().getTime()) logout();
         }
 
-        setUser(JSON.parse(localStorage.getItem('profile')));
+        setLogInUser(JSON.parse(localStorage.getItem('profile')));
 
         
         // if location change, reload this component again...
@@ -62,20 +62,20 @@ const Navbar = () => {
 
             <Toolbar className={classes.toolbar}>
                 {
-                    user?.result
+                    logInUser?.result
                         ? (
                             <div className={classes.profile}>
 
                                 <Avatar
                                     className={classes.purple}
-                                    alt={user?.result.name}
-                                    src={user?.result.imageUrl}
+                                    alt={logInUser?.result.name}
+                                    src={logInUser?.result.imageUrl}
                                 >
-                                    {user?.result.name.charAt(0)}
+                                    {logInUser?.result.name.charAt(0)}
                                 </Avatar>
 
                                 <Typography className={classes.userName} variant="h6">
-                                    {user?.result.name}
+                                    {logInUser?.result.name}
                                 </Typography>
 
                                 <Button

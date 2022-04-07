@@ -99,7 +99,7 @@ const Post = ({ post, setCurrentId }) => {
         {/* show Delete Button as for only Current User Login at system... */}
         {
           (user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
-            <Button size="small" color="primary" onClick={() => dispatch(deletePost(_id))}>
+            <Button size="small" color="secondary" onClick={() => dispatch(deletePost(_id))}>
               <DeleteIcon fontSize="small" /> Delete </Button>
           )
         }
