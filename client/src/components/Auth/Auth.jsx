@@ -30,6 +30,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const classes = useStyles();
 
+
   // signIn to signUp toggling function...
   const switchMode = () => {
     setUserInfo(initialState);
@@ -37,7 +38,14 @@ const SignUp = () => {
     setShowPassword(false);
   }
 
-  // 1:16:30
+
+  // collect all input value's dynamically from user input fields...
+  const handleChange = (e) => setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+  
+
+  // ######################################
+  // Manual Login System (SignIn + SignUp)
+  // ######################################
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -49,27 +57,30 @@ const SignUp = () => {
   }
 
 
+  // ###################################
+  // Google Login system...
+  // ###################################
   const googleSuccess = async (res) => {
 
     const result = res?.profileObj;
     const token = res?.tokenId;
 
     try {
+      // directly send user info at ==> Redux (Auth Reducer) 
+      // for storing user info at localStorage, for later using as per requirement...
       dispatch({ type: AUTH, data: { result, token } });
+
+      // after user login, redirect user at the index page...
       navigate('/');
     } catch (error) {
       console.log(error);
     }
   }
 
-
   const googleError = async (response) => {
     console.log(response)
     alert('🔴 Google Sign In was unsuccessful.\n🔴 Try again later...');
   }
-
-
-  const handleChange = (e) => setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
 
 
 

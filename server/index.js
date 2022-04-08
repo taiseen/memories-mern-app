@@ -33,5 +33,6 @@ app.use('/users', userRoutes);
 
 
 app.get('/', (req, res) => {
-    res.send("Hello... from (Backend) Moment's app... 😎👋");
+    // console.log("user hit...");
+    res.send("Hello... from ( BackEnd ) Moment's app... 😎👋");
 });

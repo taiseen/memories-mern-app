@@ -29,16 +29,16 @@ const Navbar = () => {
         // ger user token for automatic logout after some time 
         const token = logInUser?.token;
 
+        // manual signUp >>> token checking, for auto logout after 1 hour...        
         if (token) {
             const decodedToken = decode(token);
 
             if (decodedToken.exp * 1000 < new Date().getTime()) logout();
         }
 
+        // reload this component & set user info at JSX
         setLogInUser(JSON.parse(localStorage.getItem('profile')));
-
-        
-        // if location change, reload this component again...
+        // if location change, ↕↕↕↕↕ reload this component again...↕↕↕↕↕
     }, [location]);
 
 
