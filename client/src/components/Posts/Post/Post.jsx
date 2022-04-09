@@ -100,7 +100,8 @@ const Post = ({ post, setCurrentId }) => {
         {
           (user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
             <Button size="small" color="secondary" onClick={() => dispatch(deletePost(_id))}>
-              <DeleteIcon fontSize="small" /> Delete </Button>
+              <DeleteIcon fontSize="small" /> Delete
+            </Button>
           )
         }
 

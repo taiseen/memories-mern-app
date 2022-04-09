@@ -7,6 +7,13 @@ const posts = '/posts';
 const users = '/users';
 
 
+// this this going to connect with (auth middleware) at BackEnd
+// (auth middleware) can not work without this ==> token file
+// this method run at ==> every requests... that created by user at FrontEnd
+// this invoke before all of these requests that are call bellow
+// by invoking this every time, we send our token to BackEnd 
+// BackEnd auth middleware can verify that, who is currently login now...
+// so by this process ==> BackEnd get specific header file... & base on that header do his logic...
 API.interceptors.request.use(req => {
 
   if (localStorage.getItem('profile')) {
@@ -18,10 +25,13 @@ API.interceptors.request.use(req => {
 
 
 export const getAllPost = () => API.get(posts);
-export const createPost = (newPost) => API.post(posts, newPost);
-export const likePost = (id) => API.patch(`${posts}/${id}/likePost`);
+export const createPost = newPost => API.post(posts, newPost);
 export const updatePost = (id, updatedPost) => API.patch(`${posts}/${id}`, updatedPost);
-export const deletePost = (id) => API.delete(`${posts}/${id}`);
+export const deletePost = id => API.delete(`${posts}/${id}`);
+export const likingPost = id => API.patch(`${posts}/${id}/likePost`);
 
-export const signIn = (formData) => API.post(`${users}/signin`, formData);
-export const signUp = (formData) => API.post(`${users}/signup`, formData);
+export const getPostsBySearch = (searchQuery) => API.get(
+  `${posts}/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`);
+
+export const signUp = formData => API.post(`${users}/signUp`, formData);
+export const signIn = formData => API.post(`${users}/signIn`, formData);

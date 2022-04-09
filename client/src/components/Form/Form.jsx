@@ -33,6 +33,7 @@ const Form = ({ currentId, setCurrentId }) => {
     e.preventDefault();
 
     if (currentId === null) {
+      // from FrontEnd send to BackEnd ==> user name ==> with creating post data...
       dispatch(createPost({ ...postData, name: user?.result?.name }));
     } else {
       dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
@@ -55,12 +56,12 @@ const Form = ({ currentId, setCurrentId }) => {
   }
 
 
-
+  // if no user present in the system... show this message...
   if (!user?.result?.name) {
     return (
       <Paper className={classes.paper}>
         <Typography variant="h6" align="center">
-          Please sign-in to create your own memories & like other's memories.
+          Please sign-in to create your own memories 📸 & like 👍 other's memories... 😎
         </Typography>
       </Paper>
     );

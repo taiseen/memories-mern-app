@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE } from '../../constants/actionTypes';
+import { FETCH_ALL, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE } from '../../constants/actionTypes';
 import * as api from '../api';
 
 
@@ -10,18 +10,42 @@ import * as api from '../api';
 export const getAllPost = () => async (dispatch) => {
 
     try {
+        // 🟥 1st ==> server call ==> for get all posts
         const { data } = await api.getAllPost();
+
+        // 🟥 2nd ==> send (data) into Redux global store | post reducer 
         dispatch({ type: FETCH_ALL, data });
     } catch (error) {
         console.log(error);
     }
 }
 
+// Action Creators are Function that return function...
+export const getPostsBySearch = (searchQuery) => async (dispatch) => {
+
+    console.log(searchQuery)
+    try {
+        // 🟥 1st ==> server call ==> for get all posts
+        const { data } = await api.getPostsBySearch(searchQuery);
+
+        // 🟥 2nd ==> send (data) into Redux global store | post reducer 
+        dispatch({ type: FETCH_BY_SEARCH, data });
+        console.log(data)
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
 
 export const createPost = (post) => async (dispatch) => {
 
     try {
+        // 🟥 1st ==> server call
         const { data } = await api.createPost(post);
+
+        // 🟥 2nd ==> send (data) into Redux global store | post reducer 
         dispatch({ type: CREATE, data });
     } catch (error) {
         console.log(error);
@@ -32,7 +56,10 @@ export const createPost = (post) => async (dispatch) => {
 export const updatePost = (id, post) => async (dispatch) => {
 
     try {
+        // 🟥 1st ==> server call
         const { data } = await api.updatePost(id, post);
+
+        // 🟥 2nd ==> send (data) into Redux global store | post reducer 
         dispatch({ type: UPDATE, data });
     } catch (error) {
         console.log(error);
@@ -44,7 +71,11 @@ export const deletePost = (id) => async (dispatch) => {
 
     try {
         if (window.confirm("🔴 Are you sure to delete it? 🔴")) {
+
+            // 🟥 1st ==> server call
             await api.deletePost(id);
+
+            // 🟥 2nd ==> send (data) into Redux global store | post reducer 
             dispatch({ type: DELETE, data: id });
         } else {
             console.log("Can't delete...");
@@ -58,7 +89,10 @@ export const deletePost = (id) => async (dispatch) => {
 export const likePost = (id) => async (dispatch) => {
 
     try {
-        const { data } = await api.likePost(id); 
+        // 🟥 1st ==> server call
+        const { data } = await api.likingPost(id);
+
+        // 🟥 2nd ==> send (data) into Redux global store | post reducer 
         dispatch({ type: UPDATE, data });
     } catch (error) {
         console.log(error);

@@ -38,6 +38,7 @@ export const signUp = async (req, res) => {
         // 🟥 Create a token form "result" user Object
         // BackEnd create Token to send FrontEnd ==> for tracking 🧐 the user...
         // token we create in Backend by the help of [jwt] (.sign() method)
+        // inside token, store information about current user
         const token = jwt.sign(
             { email: result.email, id: result._id },
             process.env.AUTH_KEY,
@@ -90,6 +91,7 @@ export const signIn = async (req, res) => {
 
         // 🟥 BackEnd create Token to send FrontEnd ==> for tracking 🧐 the user...
         // token we create in Backend by the help of [jwt] (.sign() method)
+        // inside token, store information about current user
         const token = jwt.sign(
             { id: existingUser._id, email: existingUser.email },
             process.env.AUTH_KEY,

@@ -3,6 +3,8 @@ import Posts from './Posts/Posts';
 import Navbar from './Navbar/Navbar';
 import Home from './Home/Home';
 import Auth from './Auth/Auth';
+import PostDetails from './PostDetails/PostDetails';
+
 
 
 export {
@@ -11,4 +13,5 @@ export {
     Navbar,
     Home,
     Auth,
+    PostDetails,
 }

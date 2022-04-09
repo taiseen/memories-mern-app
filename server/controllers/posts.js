@@ -11,11 +11,41 @@ export const getPost = async (req, res) => {
     }
 }
 
+// params vs query 
+// params ==>  /:id   ==> (id) is a [variable + Placeholder] for value || use at get some specific resource 
+// query  ==> ?page=1 ==> (page) is a [variable] & [value] is (1)  || use at Search case 
+export const getPostsBySearch = async (req, res) => {
+
+    const { searchQuery, tags } = req.query;
+
+    try {
+        const title = new RegExp(searchQuery, 'i');
+        const searchingPost = await PostMessage.find(
+            {
+                $or: [
+                    { title },
+                    {
+                        tags:
+                            { $in: tags.split(',') }
+                    }
+                ]
+            }
+        );
+        res.status(200).json(searchingPost);
+    } catch (error) {
+        res.status(404).json(error);
+    }
+}
+
+
 
 export const createPost = async (req, res) => {
 
     const post = req.body;
-    const newPost = new PostMessage({ ...post, creator: req.userId, createdAt : new Date().toISOString() });
+
+    // creator: req.userId <=== set the creator of this post 
+    // req.userId <=== come from FrontEnd (header) file & process by BackEnd [auth middleware]
+    const newPost = new PostMessage({ ...post, creator: req.userId, createdAt: new Date().toISOString() });
 
     try {
         await newPost.save();
@@ -56,39 +86,52 @@ export const deletePost = async (req, res) => {
 }
 
 
-// export const likePost = async (req, res) => {
+/**
+export const likePost = async (req, res) => {
 
-//     const { id } = req.params;
-//     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No post with this id');
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No post with this id');
 
-//     try {
-//         const post = await PostMessage.findById(id);
-//         const updatePost = await PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true });
-//         res.json(updatePost);
-//     } catch (error) {
-//         res.json(error);
-//     }
-// }
-
+    try {
+        const post = await PostMessage.findById(id);
+        const updatePost = await PostMessage.findByIdAndUpdate(
+            id, { likeCount: post.likeCount + 1 }, { new: true }
+        );
+        res.json(updatePost);
+    } catch (error) {
+        res.json(error);
+    }
+}
+ */
 
 export const likePost = async (req, res) => {
     const { id } = req.params;
 
-    if (!req.userId) {
-        return res.json({ message: "Unauthenticated" });
-    }
+    // (req.userId) <=== this is come from [auth middleware] 
+
+    // if user not found...
+    if (!req.userId) return res.json({ message: "Unauthenticated" });
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
 
+    // 🟥 find post by id...
     const post = await PostMessage.findById(id);
 
-    const index = post.likes.findIndex((id) => id === String(req.userId));
+    // 🟥 find index position of user id...
+    const index = post.likes.findIndex(id => id === String(req.userId));
 
+    // 🟥 if user index is -1, thats mean user is not present in likes array
     if (index === -1) {
+        // add user id at likes array ==> by the help of auth middleware (req.userId)
         post.likes.push(req.userId);
     } else {
-        post.likes = post.likes.filter((id) => id !== String(req.userId));
+        // remove user id form likes array 
+        post.likes = post.likes.filter(id => id !== String(req.userId));
     }
+
+    // 🟥 update the post again for likes section...
     const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
+
+    // 🟥 send back the updated post to client
     res.status(200).json(updatedPost);
 }

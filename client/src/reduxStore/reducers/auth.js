@@ -2,8 +2,6 @@ import { AUTH, LOGOUT } from '../../constants/actionTypes';
 
 export const auth = (state = { authData: null }, { type, data }) => {
 
-    console.log(state)
-
     switch (type) {
 
         case AUTH:

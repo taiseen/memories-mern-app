@@ -1,7 +1,8 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE } from '../../constants/actionTypes';
+import { FETCH_ALL, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE } from '../../constants/actionTypes';
 
 export const posts = (posts = [], { type, data }) => {
 
+    console.log(posts)
     switch (type) {
 
         case CREATE:
@@ -16,6 +17,9 @@ export const posts = (posts = [], { type, data }) => {
         case FETCH_ALL:
             return data;
 
+        case FETCH_BY_SEARCH:
+            return data;
+            
         default:
             return posts;
     }
