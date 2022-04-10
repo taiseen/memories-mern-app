@@ -26,15 +26,15 @@ const Home = () => {
     const page = query.get('page') || 1;
     const searchQuery = query.get('searchQuery');
 
-    useEffect(() => {
-        // this call is very important... 
-        // for loading 1st time data in ui...
-        dispatch(getAllPost());
+    // useEffect(() => {
+    //     // this call is very important... 
+    //     // for loading 1st time data in ui...
+    //     dispatch(getAllPost());
 
-        // currentId ==> when user edit/update the post & enter submit
-        // then at Form Component id become null again
-        // for updating this change base on id, reload this component again...
-    }, [currentId, dispatch]);
+    //     // currentId ==> when user edit/update the post & enter submit
+    //     // then at Form Component id become null again
+    //     // for updating this change base on id, reload this component again...
+    // }, [currentId, dispatch]);
 
 
 
@@ -68,7 +68,7 @@ const Home = () => {
     return (
         <Grow in>
             <Container maxWidth="xl">
-                <Grid container justify="space-between" alignItems="stretch" spacing={3}
+                <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}
                     className={classes.gridContainer}>
 
 
@@ -109,11 +109,14 @@ const Home = () => {
 
                         <Form currentId={currentId} setCurrentId={setCurrentId} />
 
-                        {(!searchQuery && !tags.length) && (
-                            <Paper className={classes.pagination} elevation={6}>
-                                <Pagination page={page} />
-                            </Paper>
-                        )}
+                        {
+                            (!searchQuery && !tags.length) &&
+                            (
+                                <Paper className={classes.pagination} elevation={6}>
+                                    <Pagination page={page} />
+                                </Paper>
+                            )
+                        }
 
                     </Grid>
 

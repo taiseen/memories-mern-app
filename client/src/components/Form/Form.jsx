@@ -59,7 +59,7 @@ const Form = ({ currentId, setCurrentId }) => {
   // if no user present in the system... show this message...
   if (!user?.result?.name) {
     return (
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} raised={true} elevation={6}>
         <Typography variant="h6" align="center">
           Please sign-in to create your own memories 📸 & like 👍 other's memories... 😎
         </Typography>
@@ -70,7 +70,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
   return (
 
-    <Paper className={classes.paper}>
+    <Paper className={classes.paper} raised={true} elevation={6}>
 
       <form onSubmit={handleSubmit} className={`${classes.root} ${classes.form}`} autoComplete='off' noValidate >
 

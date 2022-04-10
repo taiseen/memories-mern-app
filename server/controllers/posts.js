@@ -1,15 +1,34 @@
 import mongoose from 'mongoose';
 import PostMessage from '../models/postMessage.js';
 
-export const getPost = async (req, res) => {
+
+export const getPosts = async (req, res) => {
+
+    const { page } = req.query;
 
     try {
-        const postMessage = await PostMessage.find();
-        res.status(200).json(postMessage);
+        const LIMIT = 4;
+        const startIndex = (Number(page) - 1) * LIMIT; //get the starting index of every page...
+        const total = await PostMessage.countDocuments({});
+
+        const posts = await PostMessage.find()
+            .sort({ _id: -1 })
+            .limit(LIMIT)
+            .skip(startIndex);
+
+        res.status(200).json(
+            {
+                data: posts,
+                currentPage: Number(page),
+                numberOfPages: Math.ceil(total / LIMIT)
+            }
+        );
+
     } catch (error) {
         res.status(404).json(error);
     }
 }
+
 
 // params vs query 
 // params ==>  /:id   ==> (id) is a [variable + Placeholder] for value || use at get some specific resource 
@@ -56,6 +75,7 @@ export const createPost = async (req, res) => {
 }
 
 
+
 export const updatePost = async (req, res) => {
 
     const { id: _id } = req.params;
@@ -72,6 +92,7 @@ export const updatePost = async (req, res) => {
 }
 
 
+
 export const deletePost = async (req, res) => {
 
     const { id } = req.params;
@@ -84,6 +105,7 @@ export const deletePost = async (req, res) => {
         res.json(error);
     }
 }
+
 
 
 /**
@@ -104,6 +126,8 @@ export const likePost = async (req, res) => {
 }
  */
 
+
+
 export const likePost = async (req, res) => {
     const { id } = req.params;
 
@@ -114,13 +138,13 @@ export const likePost = async (req, res) => {
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
 
-    // 🟥 find post by id...
+    // 🟩 find post by id...
     const post = await PostMessage.findById(id);
 
-    // 🟥 find index position of user id...
+    // 🟩 find index position of user id...
     const index = post.likes.findIndex(id => id === String(req.userId));
 
-    // 🟥 if user index is -1, thats mean user is not present in likes array
+    // 🟩 if user index is -1, thats mean user is not present in likes array
     if (index === -1) {
         // add user id at likes array ==> by the help of auth middleware (req.userId)
         post.likes.push(req.userId);
@@ -129,9 +153,9 @@ export const likePost = async (req, res) => {
         post.likes = post.likes.filter(id => id !== String(req.userId));
     }
 
-    // 🟥 update the post again for likes section...
+    // 🟩 update the post again for likes section...
     const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
 
-    // 🟥 send back the updated post to client
+    // 🟩 send back the updated post to client
     res.status(200).json(updatedPost);
 }

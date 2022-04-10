@@ -9,7 +9,7 @@
 <br/>
 
 ```
-client side ==> yarn + yarn start (1 app npm base)
+client side ==> yarn + yarn start
 server side ==> yarn + yarn start 
 ```
 
@@ -26,28 +26,26 @@ server side ==> yarn + yarn start
 | 7| yarn add `react-router-dom`    | for component navigation                  |
 | 8| yarn add `react-file-base64`   | convert image to string || file to base64 |
 | 9| yarn add `react-google-login`  | google login info support                 |
-|10| yarn add `@material-ui/core`   | designing UI of app                       |
-|11| yarn add `@material-ui/icons`  | icon's for designing UI                   |
-|12| yarn add `@material-ui/lab`    | those components, are not ready for core  |
+|10| yarn add `@material-ui/lab`    | those components, are not ready for core  |
+|11| yarn add `@material-ui/core`   | designing UI of app                       |
+|12| yarn add `@material-ui/icons`  | icon's for designing UI                   |
 |13| yarn add `@material-ui/chip-input` | a chip input field using Material-UI  |
 
 
-
-yarn add react-file-base64
-
 <br/>
+
 
 # Server Site ==> Dependencies...
 
 |No| Package Installs       | Use for                                       |
 |--|------------------------|-----------------------------------------------|
-|1 | yarn add `body-parser` | enabling POST request                         |
-|2 | yarn add `cors`        | enabling Cors origin request                  |
+|1 | yarn add `cors`        | enabling Cors origin request                  |
+|2 | yarn add `dotenv`      | hide the confidential data from public        |
 |3 | yarn add `express`     | creating routing for application              |
-|4 | yarn add `mongoose`    | creating DB modals for POST-ing data          |
-|5 | yarn add `nodemon`     | changing happen, server restart automatically |
-|6 | yarn add `dotenv`      | hide the confidential data from public        |
-|7 | yarn add `bcryptjs`    | hashing function for password security        |
+|4 | yarn add `nodemon`     | changing happen, server restart automatically |
+|5 | yarn add `mongoose`    | creating DB modals for POST-ing data          |
+|6 | yarn add `bcryptjs`    | hashing function for password security        |
+|7 | yarn add `body-parser` | enabling POST request                         |
 |8 | yarn add `jsonwebtoken`| share security information between two parties|
 
 

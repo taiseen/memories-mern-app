@@ -7,11 +7,17 @@ import { Grid, CircularProgress } from '@material-ui/core';
 const Posts = ({ setCurrentId }) => {
 
   // redux read operation... get all posts from reducer | redux global store...
-  const posts = useSelector(state => state.posts); 
+  const { posts, isLoading } = useSelector(state => state.posts);
+  console.log(posts)
+
   const classes = useStyles();
 
+   
+  if(!posts.length && !isLoading) return "No Post Found...";
+
+
   return (
-    !posts.length
+    isLoading
       ? <CircularProgress />
       : (
         <Grid
@@ -20,8 +26,8 @@ const Posts = ({ setCurrentId }) => {
           spacing={3}
           container>
           {
-            posts.map(post => (
-              <Grid key={post._id} item xm={12} sm={6}>
+            posts?.map(post => (
+              <Grid key={post._id} item xm={12} sm={12} md={6} lg={3}>
                 <Post post={post} setCurrentId={setCurrentId} />
               </Grid>
             ))

@@ -24,7 +24,7 @@ const App = () => {
               ? <Auth />
               : <Navigate to='/posts' />}
           />
-          
+
         </Routes>
       </Container>
     </BrowserRouter>
