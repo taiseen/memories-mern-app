@@ -4,6 +4,7 @@ import { LOGOUT } from '../../constants/actionTypes';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import memories from '../../assets/memories.png';
+import memoriesText from '../../assets/memoriesText.png';
 import useStyles from './styles';
 import decode from 'jwt-decode';
 
@@ -24,11 +25,11 @@ const Navbar = () => {
         setLogInUser(null);
     };
 
+    const token = logInUser?.token;
 
     useEffect(() => {
         // ger user token for automatic logout after some time 
-        const token = logInUser?.token;
-
+        
         // manual signUp >>> token checking, for auto logout after 1 hour...        
         if (token) {
             const decodedToken = decode(token);
@@ -39,8 +40,7 @@ const Navbar = () => {
         // reload this component & set user info at JSX
         setLogInUser(JSON.parse(localStorage.getItem('profile')));
         // if location change, ↕↕↕↕↕ reload this component again...↕↕↕↕↕
-    }, [location]);
-
+    }, [token, logout, location]);
 
 
     return (
@@ -48,16 +48,8 @@ const Navbar = () => {
         <AppBar className={classes.appBar} position="static" color="inherit">
 
             <Link to="/" className={classes.brandContainer}>
-
-                <Typography
-                    // component={Link}
-                    // to="/"
-                    variant="h2"
-                    align="center"
-                    className={classes.heading}>Moments</Typography>
-
+                <img component={Link} to="/" src={memoriesText} alt="icon" height="45px" />
                 <img className={classes.image} src={memories} alt="icon" height="60" />
-
             </Link>
 
             <Toolbar className={classes.toolbar}>

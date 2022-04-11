@@ -4,15 +4,17 @@ import { createPost, updatePost } from '../../reduxStore/actions/posts';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import FileBase from 'react-file-base64';
 import useStyles from './styles';
+import { useNavigate } from 'react-router-dom';
 
 // get the current id
 const Form = ({ currentId, setCurrentId }) => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   // get that specific post, which user click on Edit Button...
-  const post = useSelector(state => currentId && state.posts.find(p => p._id === currentId));
+  const post = useSelector(state => currentId && state.posts.posts.find(p => p._id === currentId));
 
   // get user info from localStorage that server send as jwt( jsonWebToken)
   const user = JSON.parse(localStorage.getItem('profile'));
@@ -34,7 +36,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
     if (currentId === null) {
       // from FrontEnd send to BackEnd ==> user name ==> with creating post data...
-      dispatch(createPost({ ...postData, name: user?.result?.name }));
+      dispatch(createPost({ ...postData, name: user?.result?.name }, navigate));
     } else {
       dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
     }
@@ -59,7 +61,7 @@ const Form = ({ currentId, setCurrentId }) => {
   // if no user present in the system... show this message...
   if (!user?.result?.name) {
     return (
-      <Paper className={classes.paper} raised={true} elevation={6}>
+      <Paper className={classes.paper} elevation={6}>
         <Typography variant="h6" align="center">
           Please sign-in to create your own memories 📸 & like 👍 other's memories... 😎
         </Typography>
@@ -70,7 +72,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
   return (
 
-    <Paper className={classes.paper} raised={true} elevation={6}>
+    <Paper className={classes.paper} elevation={6}>
 
       <form onSubmit={handleSubmit} className={`${classes.root} ${classes.form}`} autoComplete='off' noValidate >
 

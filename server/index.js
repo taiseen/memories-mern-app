@@ -34,5 +34,5 @@ app.use('/users', userRoutes);
 
 app.get('/', (req, res) => {
     // console.log("user hit...");
-    res.send("Hello... from ( BackEnd ) Moment's app... 😎👋");
+    res.send("BackEnd || Hello... From Memories App... 😎👋");
 });

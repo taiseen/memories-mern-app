@@ -21,11 +21,13 @@
 ```
 heroku login
 
-heroku git:clone -a moments-app-bd
-cd moments-app-bd
-
+git init
 git add .
-git commit -am "make it better"
+git commit -am "all ==> OK"
+
+1st time: heroku git:remote -a memories-app-bd
+2nd time: heroku git:clone -a memories-app-bd 
+
 git push heroku master
 ```
 

@@ -1,9 +1,9 @@
 
 import { Container, Grow, Grid, AppBar, TextField, Button, Paper } from '@material-ui/core';
-import { getAllPost, getPostsBySearch } from '../../reduxStore/actions/posts';
+import { getPostsBySearch } from '../../reduxStore/actions/posts';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 import Pagination from '../Pagination/Pagination';
 import ChipInput from 'material-ui-chip-input';
 import Posts from '../Posts/Posts';
@@ -23,8 +23,9 @@ const Home = () => {
     const dispatch = useDispatch();
     const classes = useStyles();
     const query = useQuery();
-    const page = query.get('page') || 1;
+    const page = query.get('pageNumber') || 1;
     const searchQuery = query.get('searchQuery');
+
 
     // useEffect(() => {
     //     // this call is very important... 
@@ -48,6 +49,7 @@ const Home = () => {
         }
     };
 
+
     // handle user enter button...
     const handleKeyPress = (e) => {
         if (e.keyCode === 13) {
@@ -56,10 +58,10 @@ const Home = () => {
         }
     };
 
+
     // store/save all tags into tags useState local variable 
     // spreads all previous tags & add new tag into it...
     const handleAddChip = (tag) => setTags([...tags, tag]);
-
 
     // delete tag from tags array 
     const handleDeleteChip = (chipToDelete) => setTags(tags.filter(tag => tag !== chipToDelete));
@@ -71,18 +73,17 @@ const Home = () => {
                 <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}
                     className={classes.gridContainer}>
 
-
                     <Grid item xs={12} sm={6} md={9}>
                         <Posts setCurrentId={setCurrentId} />
                     </Grid>
 
-
                     <Grid item xs={12} sm={6} md={3}>
 
+                        {/* Search ==> Section Display From Here... */}
                         <AppBar className={classes.appBarSearch} position="static" color="inherit">
-
-                            {/* Search Inputs  */}
-
+                            
+                            {/* Search Input */}
+                            
                             <TextField fullWidth name="search" variant="outlined" label="Search Memories"
                                 value={search}
                                 onKeyDown={handleKeyPress}
@@ -107,8 +108,12 @@ const Home = () => {
 
                         </AppBar>
 
+
+                        {/* Form ==> Section Display From Here... */}
                         <Form currentId={currentId} setCurrentId={setCurrentId} />
 
+
+                        {/* Pagination ==> Section Display From Here... */}
                         {
                             (!searchQuery && !tags.length) &&
                             (
@@ -119,7 +124,6 @@ const Home = () => {
                         }
 
                     </Grid>
-
 
                 </Grid>
             </Container>

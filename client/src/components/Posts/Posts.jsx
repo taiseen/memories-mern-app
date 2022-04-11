@@ -8,17 +8,16 @@ const Posts = ({ setCurrentId }) => {
 
   // redux read operation... get all posts from reducer | redux global store...
   const { posts, isLoading } = useSelector(state => state.posts);
-  console.log(posts)
 
   const classes = useStyles();
 
-   
-  if(!posts.length && !isLoading) return "No Post Found...";
+
+  if (!posts.length && !isLoading) return "No Post Found...";
 
 
   return (
     isLoading
-      ? <CircularProgress />
+      ? <CircularProgress style={{ color: "yellow" }} size={60} thickness={6} />
       : (
         <Grid
           className={classes.container}

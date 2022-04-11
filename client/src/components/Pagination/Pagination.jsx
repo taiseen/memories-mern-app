@@ -13,10 +13,10 @@ const Paginate = ({ page }) => {
     const dispatch = useDispatch();
     const { numberOfPages } = useSelector(state => state.posts)
 
-
+    
     useEffect(() => {
         if (page) dispatch(getAllPost(page));
-    }, [page])
+    }, [dispatch, page])
 
 
     // count = how many pages we have || numberOfPages
@@ -32,7 +32,7 @@ const Paginate = ({ page }) => {
                 <PaginationItem
                     {...item}
                     component={Link}
-                    to={`/posts?page=${item.page}`}
+                    to={`/posts?pageNumber=${item.page}`}
                 />
             )}
         >

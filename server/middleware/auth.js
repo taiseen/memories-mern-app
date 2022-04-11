@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 
-
 // want to edit post 
 // want to like post 
 // click edit button ==> auth middleware (next) ==> edit controllers
@@ -32,7 +31,7 @@ const auth = async (req, res, next) => {
             // for track id by whole backend application
             req.userId = decodedData?.id;
         } else {
-            // google auth system... 🟨 in this case we dont need the secret key...
+            // google auth system... 🟨 in this case we dont need the secret key... 🔑
             decodedData = jwt.decode(token);
 
             // our custom made req-Object property... (userId)

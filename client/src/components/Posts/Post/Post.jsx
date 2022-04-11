@@ -1,6 +1,7 @@
-import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
+import { Card, CardActions, CardContent, CardMedia, Button, Typography, ButtonBase } from '@material-ui/core';
 import { deletePost, likePost } from '../../../reduxStore/actions/posts';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
@@ -13,11 +14,14 @@ const Post = ({ post, setCurrentId }) => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { title, name, createdAt, _id, selectedFile, tags, message } = post;
 
   // get user info from localStorage that server send as jwt(jsonWebToken)
   const user = JSON.parse(localStorage.getItem('profile'));
 
+
+  const openPost = () => navigate(`/posts/${post._id}`);
 
   const Likes = () => {
     if (post.likes.length > 0) {
@@ -43,50 +47,62 @@ const Post = ({ post, setCurrentId }) => {
   };
 
 
-
   return (
     <Card className={classes.card} raised={true} elevation={6}>
 
-      <CardMedia className={classes.media} title={title}
-        image={selectedFile ||
-          'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} />
+      <ButtonBase className={classes.cardAction} onClick={openPost} component="span"
+        name="test">
 
-      <div className={classes.overlay}>
-        <Typography variant="h6">{name}</Typography>
+        <CardMedia className={classes.media} title={title}
+          image={selectedFile ||
+            'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} />
 
-        <Typography variant="body2">
-          {moment(createdAt).fromNow()}
-        </Typography>
-      </div>
+        <div className={classes.overlay}>
+          <Typography variant="h6">{name}</Typography>
+
+          <Typography variant="body2">
+            {moment(createdAt).fromNow()}
+          </Typography>
+        </div>
 
 
-      {/* show EDIT Button as for only Current User Login at system... */}
-      <div className={classes.overlay2}>
-        {
+        { /* show EDIT Button as for only Current User Login at system... */
           (user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
-            <Button style={{ color: 'white' }} size="small" onClick={() => setCurrentId(_id)}>
-              <MoreHorizIcon fontSize="medium" />
-            </Button>
+
+            <div className={classes.overlay2} name="edit">
+              <Button
+                size="small"
+                style={{ color: 'white' }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCurrentId(_id);
+                }}
+              >
+                <MoreHorizIcon fontSize="medium" />
+              </Button>
+            </div>
           )
         }
-      </div>
 
 
-      <div className={classes.details}>
-        <Typography variant="body2" color="textSecondary" component="h2">
-          {tags.map(tag => `#${tag} `)}
-        </Typography>
-      </div>
+
+        <div className={classes.details}>
+          <Typography variant="body2" color="textSecondary" component="h2">
+            {tags.map(tag => `#${tag} `)}
+          </Typography>
+        </div>
 
 
-      <Typography className={classes.title} gutterBottom variant="h5" component="h2">{title}</Typography>
+        <Typography className={classes.title} gutterBottom variant="h5" component="h2">{title}</Typography>
 
 
-      <CardContent className={classes.message} >
-        <Typography variant="body2" color="textSecondary" component="p">
-          {message}
-        </Typography>
-      </CardContent>
+        <CardContent className={classes.message} >
+          <Typography variant="body2" color="textSecondary" component="p">
+            {message}
+          </Typography>
+        </CardContent>
+
+      </ButtonBase>
 
 
       <CardActions className={classes.cardActions}>

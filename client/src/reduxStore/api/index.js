@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'http://localhost:5000' });
-// const API = axios.create({ baseURL: 'https://moments-app-bd.herokuapp.com' });
+// const API = axios.create({ baseURL: 'http://localhost:5000' });
+const API = axios.create({ baseURL: 'https://memories-app-bd.herokuapp.com' });
 
 const posts = '/posts';
 const users = '/users';
@@ -24,7 +24,8 @@ API.interceptors.request.use(req => {
 });
 
 
-export const getAllPost = page => API.get(`${posts}?page=${page}`);
+export const getPost = id => API.get(`${posts}/${id}`);
+export const getAllPost = pageNumber => API.get(`${posts}?pageNumber=${pageNumber}`);
 export const createPost = newPost => API.post(posts, newPost);
 export const updatePost = (id, updatedPost) => API.patch(`${posts}/${id}`, updatedPost);
 export const deletePost = id => API.delete(`${posts}/${id}`);

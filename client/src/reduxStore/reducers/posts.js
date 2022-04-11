@@ -1,8 +1,8 @@
-import { FETCH_ALL, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, LOADING_START, LOADING_END } from '../../constants/actionTypes';
+import { FETCH_ALL, FETCH_POST, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, LOADING_START, LOADING_END } from '../../constants/actionTypes';
 
 export const posts = (state = { isLoading: true, posts: [] }, { type, payload }) => {
 
-    console.log(state)
+    // console.log(state)
 
     switch (type) {
 
@@ -29,11 +29,11 @@ export const posts = (state = { isLoading: true, posts: [] }, { type, payload })
                 numberOfPages: payload.numberOfPages
             };
 
+        case FETCH_POST:
+            return { ...state, post: payload };
+
         case FETCH_BY_SEARCH:
-            return {
-                ...state,
-                posts: payload,
-            };
+            return { ...state, posts: payload };
 
         default:
             return state;

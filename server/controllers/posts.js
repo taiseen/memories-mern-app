@@ -2,13 +2,27 @@ import mongoose from 'mongoose';
 import PostMessage from '../models/postMessage.js';
 
 
+// get only single post by (id) when user click on specific post...
+export const getPost = async (req, res) => {
+
+    const { id } = req.params;
+
+    try {
+        const post = await PostMessage.findById(id);
+        res.status(200).json(post);
+    } catch (error) {
+        res.status(404).json(error);
+    }
+}
+
+
 export const getPosts = async (req, res) => {
 
-    const { page } = req.query;
+    const { pageNumber } = req.query;
 
     try {
         const LIMIT = 4;
-        const startIndex = (Number(page) - 1) * LIMIT; //get the starting index of every page...
+        const startIndex = (Number(pageNumber) - 1) * LIMIT; //get the starting index of every page...
         const total = await PostMessage.countDocuments({});
 
         const posts = await PostMessage.find()
@@ -19,7 +33,7 @@ export const getPosts = async (req, res) => {
         res.status(200).json(
             {
                 data: posts,
-                currentPage: Number(page),
+                currentPage: Number(pageNumber),
                 numberOfPages: Math.ceil(total / LIMIT)
             }
         );
@@ -33,6 +47,8 @@ export const getPosts = async (req, res) => {
 // params vs query 
 // params ==>  /:id   ==> (id) is a [variable + Placeholder] for value || use at get some specific resource 
 // query  ==> ?page=1 ==> (page) is a [variable] & [value] is (1)  || use at Search case 
+// ###### its also called when user click a specific post...
+// ###### because by (tags) show user ==> also you like these post...
 export const getPostsBySearch = async (req, res) => {
 
     const { searchQuery, tags } = req.query;

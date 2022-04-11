@@ -4,7 +4,7 @@
 
 ## Material UI + React + Redux + NodeJs + MongoDB (Atlas)
 
-# [Frontend](https://moments-app-bd.netlify.app) | [Backend](https://moments-app-bd.herokuapp.com) 
+# [Frontend](https://memories-app-bd.netlify.app) | [Backend](https://memories-app-bd.herokuapp.com/) 
 
 <br/>
 
@@ -12,6 +12,7 @@
 client side ==> yarn + yarn start
 server side ==> yarn + yarn start 
 ```
+[Google](https://console.cloud.google.com/apis/credentials?project=local-riders-308310) for login.
 
 # Client Site ==> Dependencies...
 
