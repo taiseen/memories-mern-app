@@ -27,16 +27,18 @@ const Home = () => {
     const searchQuery = query.get('searchQuery');
 
 
-    // useEffect(() => {
-    //     // this call is very important... 
-    //     // for loading 1st time data in ui...
-    //     dispatch(getAllPost());
+    /*
+    useEffect(() => {
+        this call is very important... 
+        for loading 1st time data in ui...
+        
+        dispatch(getAllPost());
 
-    //     // currentId ==> when user edit/update the post & enter submit
-    //     // then at Form Component id become null again
-    //     // for updating this change base on id, reload this component again...
-    // }, [currentId, dispatch]);
-
+        currentId ==> when user edit/update the post & enter submit
+        then at Form Component id become null again
+        for updating this change base on id, reload this component again...
+    }, [currentId, dispatch]);
+    */
 
 
     // run this ==> when user click search button
@@ -81,9 +83,9 @@ const Home = () => {
 
                         {/* Search ==> Section Display From Here... */}
                         <AppBar className={classes.appBarSearch} position="static" color="inherit">
-                            
+
                             {/* Search Input */}
-                            
+
                             <TextField fullWidth name="search" variant="outlined" label="Search Memories"
                                 value={search}
                                 onKeyDown={handleKeyPress}

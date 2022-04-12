@@ -21,7 +21,7 @@ export const getPosts = async (req, res) => {
     const { pageNumber } = req.query;
 
     try {
-        const LIMIT = 4;
+        const LIMIT = 8;
         const startIndex = (Number(pageNumber) - 1) * LIMIT; //get the starting index of every page...
         const total = await PostMessage.countDocuments({});
 
@@ -174,4 +174,30 @@ export const likePost = async (req, res) => {
 
     // 🟩 send back the updated post to client
     res.status(200).json(updatedPost);
+}
+
+
+
+export const commentPost = async (req, res) => {
+    
+    const { id } = req.params;
+    const { userComment } = req.body;
+
+    try {
+
+        // 🟩 1st ==> find-out the post, where user are going to comment...
+        const post = await PostMessage.findById(id);
+
+        // 🟩 2nd ==> after finding that existing post, push this user comment inside that post document
+        post.comments.push(userComment);
+
+        // 🟩 3rd ==> after pushing the comment into targeted post, again update that post...
+        const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
+
+        // send this data to frontEnd...
+        res.status(200).json(updatedPost);
+
+    } catch (error) {
+        res.status(409).json(error);
+    }
 }

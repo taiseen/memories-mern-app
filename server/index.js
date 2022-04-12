@@ -32,7 +32,20 @@ app.use('/users', userRoutes);
 // express middleware for using routes File...
 
 
-app.get('/', (req, res) => {
-    // console.log("user hit...");
-    res.send("BackEnd || Hello... From Memories App... 😎👋");
-});
+
+// Default info show at root page...
+const welcomeMessage = (req, res) => {
+
+    res.send(`<h1 style="
+        color: tomato; 
+        text-align: center; 
+        font-family: verdana;
+        ">
+
+        BackEnd || Hello... From Memories App... 😎👋
+
+    </h1>`);
+}
+app.get('/', welcomeMessage);
+
+

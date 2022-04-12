@@ -18,3 +18,17 @@
 
 
 Learning by inspired from[.](https://youtu.be/ngc9gnGgUdA)
+
+
+
+Hello there...
+
+The requirement is deleting images by Axios delete function passing the (delete_url) as argument of that image which uploaded by using the user API key. (It's only just for learning purposes)  
+
+For learning purpose I'm going to try like this :
+
+export const imageDelete = delete_url => axios.delete(delete_url);
+
+It shows an error...  so is there any way to delete that uploaded img, with the help of Axios delete API call?
+
+Thank You.

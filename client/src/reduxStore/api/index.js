@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const API = axios.create({ baseURL: 'http://localhost:5000' });
-const API = axios.create({ baseURL: 'https://memories-app-bd.herokuapp.com' });
+const API = axios.create({ baseURL: 'http://localhost:5000' });
+// const API = axios.create({ baseURL: 'https://memories-app-bd.herokuapp.com' });
 
 const posts = '/posts';
 const users = '/users';
@@ -30,9 +30,18 @@ export const createPost = newPost => API.post(posts, newPost);
 export const updatePost = (id, updatedPost) => API.patch(`${posts}/${id}`, updatedPost);
 export const deletePost = id => API.delete(`${posts}/${id}`);
 export const likingPost = id => API.patch(`${posts}/${id}/likePost`);
+export const comment = (userComment, postId) => API.post(`${posts}/${postId}/commentPost`, { userComment });
 
-export const getPostsBySearch = (searchQuery) => API.get(
+
+export const getPostsBySearch = searchQuery => API.get(
   `${posts}/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`);
+
 
 export const signUp = formData => API.post(`${users}/signUp`, formData);
 export const signIn = formData => API.post(`${users}/signIn`, formData);
+
+
+const imgbbLink = 'https://api.imgbb.com/1/upload';
+export const imageUpload = imgFile => axios.post(imgbbLink, imgFile);
+export const imageDelete = imgUrl => axios.delete(imgUrl);
+

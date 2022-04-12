@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { createPost, updatePost } from '../../reduxStore/actions/posts';
+import { createPost, updatePost, imageUpload } from '../../reduxStore/actions/posts';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
-import FileBase from 'react-file-base64';
-import useStyles from './styles';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+// import FileBase from 'react-file-base64';
+import useStyles from './styles';
 
 // get the current id
 const Form = ({ currentId, setCurrentId }) => {
@@ -15,14 +15,16 @@ const Form = ({ currentId, setCurrentId }) => {
 
   // get that specific post, which user click on Edit Button...
   const post = useSelector(state => currentId && state.posts.posts.find(p => p._id === currentId));
+  const imgbb = useSelector(imgStore => imgStore.img);
+  console.log(imgbb?.imgbb?.deleteUrl);
+
 
   // get user info from localStorage that server send as jwt( jsonWebToken)
   const user = JSON.parse(localStorage.getItem('profile'));
 
   const [postData, setPostData] = useState({
-    title: '', message: '', tags: '', selectedFile: ''
+    title: '', message: '', tags: '', imgUrl: '', imgDeleteUrl: ''
   });
-
 
 
   useEffect(() => {
@@ -35,8 +37,18 @@ const Form = ({ currentId, setCurrentId }) => {
     e.preventDefault();
 
     if (currentId === null) {
-      // from FrontEnd send to BackEnd ==> user name ==> with creating post data...
-      dispatch(createPost({ ...postData, name: user?.result?.name }, navigate));
+
+      // console.log({ ...postData, name: user?.result?.name, selectedFile: imgbb?.url })
+
+      const userPost = {
+        ...postData,
+        // from FrontEnd send to BackEnd ==> user name ==> with creating post data...
+        name: user?.result?.name,
+        imgUrl: imgbb?.imgbb?.url,
+        imgDeleteUrl: imgbb?.imgbb?.deleteUrl
+      }
+      console.log(userPost);
+      dispatch(createPost(userPost, navigate));
     } else {
       dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
     }
@@ -54,7 +66,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
   const clear = () => {
     setCurrentId(null);
-    setPostData({ title: '', message: '', tags: '', selectedFile: '' });
+    setPostData({ title: '', message: '', tags: '', imgUrl: '' });
   }
 
 
@@ -69,6 +81,15 @@ const Form = ({ currentId, setCurrentId }) => {
     );
   }
 
+  const handleImageUpload = (e) => {
+
+    const selectedIMG = e.target.files[0];
+    const imageData = new FormData();
+    imageData.set('key', 'e6a6e2fab17e156f5aec357902880cea');
+    imageData.append('image', selectedIMG);
+
+    dispatch(imageUpload(imageData));
+  }
 
   return (
 
@@ -83,11 +104,29 @@ const Form = ({ currentId, setCurrentId }) => {
         <TextField fullWidth variant='outlined' name='tags' label="Tags (coma separated)" value={postData.tags}
           onChange={e => setPostData({ ...postData, tags: e.target.value.split(',').map(tag => tag.trim()) })} />
 
-        <div className={classes.fileInput}>
+        {/* <div className={classes.fileInput}>
           <FileBase type='file' multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
+        </div> */}
+
+        <div className={classes.fileInput}>
+          <input
+            id="file"
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload} />
         </div>
 
-        <Button className={classes.buttonSubmit} variant='contained' color='primary' size='large' type='submit' fullWidth>
+        <Button
+          className={classes.buttonSubmit}
+          variant='contained'
+          color='primary'
+          type='submit'
+          size='large'
+          fullWidth
+          disabled={!imgbb.isSuccess}
+        >
+          {console.log(imgbb)}
+          {console.log(imgbb.isSuccess)}
           Submit
         </Button>
 
