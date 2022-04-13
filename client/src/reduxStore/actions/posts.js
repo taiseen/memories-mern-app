@@ -2,9 +2,14 @@ import { FETCH_ALL, FETCH_POST, FETCH_BY_SEARCH, LOADING_START, LOADING_END, CRE
 import * as api from '../api';
 
 
-// all actions/events toward our backend are going to be done using redux
-// we need to dispatch those actions... from needful components...
+// action/event creator is a function() that return action/event... & its Object...
+// all actions/events toward our backend are going to be done using redux...
+// we need to dispatch those actions... from needful components as per need...
 
+// in this file we are working with asynchronous data
+// actually fetch all data from server need some time...
+// & for that reason, we use redux-thunk... [ async (dispatch) => ]
+// its give us that extra time to wait that must need for clint to server communication...
 
 export const getPost = (id) => async (dispatch) => {
 
@@ -41,7 +46,7 @@ export const commentPost = (userComment, postId) => async (dispatch) => {
 }
 
 
-// this (page) <== is integer value, link: 1 | 2 | 3 | 4 | ......
+// this (pageNumber) <== is integer value, link: 1 | 2 | 3 | 4 | ......
 export const getAllPost = (pageNumber) => async (dispatch) => {
 
     try {
@@ -80,8 +85,6 @@ export const createPost = (post, navigate) => async (dispatch) => {
         dispatch({ type: LOADING_START });
         // 🟩 1st ==> server call
         const { data } = await api.createPost(post);
-
-        console.log(data)
 
         // navigate(`/posts/${data._id}`);
 
@@ -148,7 +151,6 @@ export const imageUpload = (imgFile) => async (dispatch) => {
         dispatch({ type: UPLOAD_START });
         // 🟩 1st ==> server call
         const { data } = await api.imageUpload(imgFile);
-        console.log(data);
 
         // 🟩 2nd ==> send (data) into Redux global store | post reducer 
         dispatch({ type: IMG_UPLOAD, payload: data });

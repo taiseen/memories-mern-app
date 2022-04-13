@@ -16,7 +16,6 @@ const Form = ({ currentId, setCurrentId }) => {
   // get that specific post, which user click on Edit Button...
   const post = useSelector(state => currentId && state.posts.posts.find(p => p._id === currentId));
   const imgbb = useSelector(imgStore => imgStore.img);
-  console.log(imgbb?.imgbb?.deleteUrl);
 
 
   // get user info from localStorage that server send as jwt( jsonWebToken)
@@ -30,6 +29,19 @@ const Form = ({ currentId, setCurrentId }) => {
   useEffect(() => {
     if (post) setPostData(post);
   }, [post]);
+
+
+  let value = true;
+  if (currentId !== null) {
+    value = false;
+    // false ===> Open | Enable
+  } else if (!imgbb.isSuccess) {
+    value = false;
+    // false ===> Open | Enable
+  } else {
+    value = true;
+    // true ===> Close | Disable
+  }
 
 
   // values send to the server... through the help of redux action creator...
@@ -47,14 +59,17 @@ const Form = ({ currentId, setCurrentId }) => {
         imgUrl: imgbb?.imgbb?.url,
         imgDeleteUrl: imgbb?.imgbb?.deleteUrl
       }
-      console.log(userPost);
       dispatch(createPost(userPost, navigate));
+      value = true;
     } else {
       dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
     }
 
     // clear all user input values form (ui) input field, after user submit these value into server...
+    e.target.value = null;
     clear();
+
+    // for disabling submit btn...
   }
 
   // collect user input values...
@@ -91,18 +106,54 @@ const Form = ({ currentId, setCurrentId }) => {
     dispatch(imageUpload(imageData));
   }
 
+  console.log(imgbb?.imgbb?.deleteUrl);
+
+
   return (
 
     <Paper className={classes.paper} elevation={6}>
 
-      <form onSubmit={handleSubmit} className={`${classes.root} ${classes.form}`} autoComplete='off' noValidate >
+      <form
+        className={`${classes.root} ${classes.form}`}
+        onSubmit={handleSubmit}
+        autoComplete='off'
+        noValidate
+      >
 
-        <Typography variant='h6'>{currentId ? 'Editing' : 'Creating'} a memory</Typography>
+        <Typography variant='h6'>
+          {currentId ? 'Editing' : 'Creating'} a memory
+        </Typography>
 
-        <TextField fullWidth variant='outlined' name='title' label='Title' value={postData.title} onChange={handleChange} />
-        <TextField fullWidth variant='outlined' name='message' label='Message' value={postData.message} onChange={handleChange} />
-        <TextField fullWidth variant='outlined' name='tags' label="Tags (coma separated)" value={postData.tags}
-          onChange={e => setPostData({ ...postData, tags: e.target.value.split(',').map(tag => tag.trim()) })} />
+        <TextField
+          fullWidth
+          name='title'
+          label='Title'
+          variant='outlined'
+          value={postData.title}
+          onChange={handleChange} />
+
+        <TextField
+          fullWidth
+          name='message'
+          label='Message'
+          variant='outlined'
+          multiline rows={5}
+          value={postData.message}
+          onChange={handleChange} />
+
+        <TextField
+          fullWidth
+          name='tags'
+          variant='outlined'
+          label="Tags (coma separated)"
+          value={postData.tags}
+          onChange={e => setPostData(
+            {
+              ...postData, tags: e.target.value
+                .split(',')
+                .map(tag => tag.trim())
+            }
+          )} />
 
         {/* <div className={classes.fileInput}>
           <FileBase type='file' multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
@@ -119,19 +170,25 @@ const Form = ({ currentId, setCurrentId }) => {
         <Button
           className={classes.buttonSubmit}
           variant='contained'
+          disabled={value}
           color='primary'
           type='submit'
           size='large'
           fullWidth
-          disabled={!imgbb.isSuccess}
         >
-          {console.log(imgbb)}
-          {console.log(imgbb.isSuccess)}
           Submit
         </Button>
 
-        <Button className={classes.buttonClear} variant='contained' color='secondary' size='small' onClick={clear} fullWidth>
-          Clear
+        <Button
+          disabled={!postData.tags.length}
+          className={classes.buttonClear}
+          variant='contained'
+          color='secondary'
+          onClick={clear}
+          size='small'
+          fullWidth
+        >
+          Clear all
         </Button>
 
       </form>

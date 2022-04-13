@@ -7,6 +7,8 @@ const userSchema = mongoose.Schema({
     password: { type: String, require: true }
 });
 
-const UserInfo = mongoose.model('UserInfo', userSchema);
+const UserModel = mongoose.model('UserInfo', userSchema);
 
-export default UserInfo;
+export default UserModel;
+
+// 'UserInfo' <== this name save as collection inside MongoDB

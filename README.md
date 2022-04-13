@@ -8,11 +8,25 @@
 
 <br/>
 
+
+## Features of app:
+1. Full CRUD operation
+2. Searching operation 
+3. Google auth login
+4. JSON Web Token for track user
+5. Pagination for data view
+6. Comment section for login user 
+7. MongoDB Connection
+8. use Redux for centrally data management
+9. Application can scalable
+10. Image file uploaded at imgbb.com
+
+
+[Google](https://console.cloud.google.com/apis/credentials?project=local-riders-308310) for login.
 ```
 client side ==> yarn + yarn start
 server side ==> yarn + yarn start 
 ```
-[Google](https://console.cloud.google.com/apis/credentials?project=local-riders-308310) for login.
 
 # Client Site ==> Dependencies...
 
@@ -44,7 +58,7 @@ server side ==> yarn + yarn start
 |2 | yarn add `dotenv`      | hide the confidential data from public        |
 |3 | yarn add `express`     | creating routing for application              |
 |4 | yarn add `nodemon`     | changing happen, server restart automatically |
-|5 | yarn add `mongoose`    | creating DB modals for POST-ing data          |
+|5 | yarn add `mongoose`    | creating DB schema/modal for POST-ing data    |
 |6 | yarn add `bcryptjs`    | hashing function for password security        |
 |7 | yarn add `body-parser` | enabling POST request                         |
 |8 | yarn add `jsonwebtoken`| share security information between two parties|

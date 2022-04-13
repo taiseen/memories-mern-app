@@ -33,4 +33,6 @@ git push heroku master
 
 ```
 CONNECTION_URL = mongodb+srv://USERNAME:PASS@sandbox.6vljy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+
+AUTH_KEY = demoTestingKey
 ```

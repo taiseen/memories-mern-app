@@ -125,7 +125,7 @@ const Post = ({ post, setCurrentId }) => {
 
       <CardActions className={classes.cardActions}>
 
-        {/* if no User Login at system, disable Like Button... */}
+        {/* if no User Login at system, disable Like Button... 👍👍👍*/}
         <Button size="small" color="primary" disabled={!user?.result} onClick={handleClick}>
           <Likes />
         </Button>

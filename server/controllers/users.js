@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import UserInfo from '../models/userInfo.js';
+import UserModel from '../models/userModel.js';
 
 // bcrypt ==> for hashing the user password, 
 // for that no one can understand user pass by see it...
@@ -19,7 +19,7 @@ export const signUp = async (req, res) => {
     try {
 
         // 🟥 1st find that ==> user, is already present in our DB?
-        const existingUser = await UserInfo.findOne({ email });
+        const existingUser = await UserModel.findOne({ email });
 
         // 🟥 if user already exist in our DB, then send sms ==> "User already exist"
         if (existingUser) return res.status(400).json({ message: "User already exist" });
@@ -31,7 +31,7 @@ export const signUp = async (req, res) => {
         const hashPassword = await bcrypt.hash(password, 12);
 
         // 🟥 Creating a user & save into DataBase
-        const result = await UserInfo.create(
+        const result = await UserModel.create(
             { name: `${firstName} ${lastName}`, email, password: hashPassword }
         );
 
@@ -65,7 +65,7 @@ export const signIn = async (req, res) => {
     try {
 
         // 🟥 searching 🔎 this existing user in DataBase... (NOT Create New 1)
-        const existingUser = await UserInfo.findOne({ email });
+        const existingUser = await UserModel.findOne({ email });
 
         // Return Value of the collection.findOne() ==> this returns a Promise...
         // that resolves to the 1st document in the collection that matches the query.

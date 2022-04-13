@@ -3,10 +3,6 @@ import axios from 'axios';
 const API = axios.create({ baseURL: 'http://localhost:5000' });
 // const API = axios.create({ baseURL: 'https://memories-app-bd.herokuapp.com' });
 
-const posts = '/posts';
-const users = '/users';
-
-
 // this this going to connect with (auth middleware) at BackEnd
 // (auth middleware) can not work without this ==> token file
 // this method run at ==> every requests... that created by user at FrontEnd
@@ -24,6 +20,7 @@ API.interceptors.request.use(req => {
 });
 
 
+const posts = '/posts';
 export const getPost = id => API.get(`${posts}/${id}`);
 export const getAllPost = pageNumber => API.get(`${posts}?pageNumber=${pageNumber}`);
 export const createPost = newPost => API.post(posts, newPost);
@@ -37,11 +34,11 @@ export const getPostsBySearch = searchQuery => API.get(
   `${posts}/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`);
 
 
-export const signUp = formData => API.post(`${users}/signUp`, formData);
-export const signIn = formData => API.post(`${users}/signIn`, formData);
+export const signUp = formData => API.post(`/users/signUp`, formData);
+export const signIn = formData => API.post(`/users/signIn`, formData);
 
 
+// only for image upload at this domain...
 const imgbbLink = 'https://api.imgbb.com/1/upload';
 export const imageUpload = imgFile => axios.post(imgbbLink, imgFile);
 export const imageDelete = imgUrl => axios.delete(imgUrl);
-
