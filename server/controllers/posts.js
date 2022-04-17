@@ -23,7 +23,7 @@ export const getPosts = async (req, res) => {
     try {
         const LIMIT = 4;
         //get the starting index of every page...
-        const startIndex = (Number(pageNumber) - 1) * LIMIT; 
+        const startIndex = (Number(pageNumber) - 1) * LIMIT;
         const total = await PostModel.countDocuments({});
 
         const posts = await PostModel.find()
@@ -77,6 +77,10 @@ export const getPostsBySearch = async (req, res) => {
 
 export const createPost = async (req, res) => {
 
+    // How we get users input data from FrontEnd, at this file inside this function ?
+    // ans ==> when ever you have a [post] request... form FrontEnd...
+    // you get all the user input data through ==> req.body
+
     const post = req.body;
 
     // creator: req.userId <=== set the creator of this post 
@@ -95,13 +99,13 @@ export const createPost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
 
-    const { id: _id } = req.params;
+    const { id } = req.params;
     const post = req.body;
 
-    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with this id');
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No post with this id');
 
     try {
-        const updatePost = await PostModel.findByIdAndUpdate(_id, { ...post, _id }, { new: true });
+        const updatePost = await PostModel.findByIdAndUpdate(id, post, { new: true });
         res.json(updatePost);
     } catch (error) {
         res.json(error);
@@ -149,16 +153,18 @@ export const likePost = async (req, res) => {
     const { id } = req.params;
 
     // (req.userId) <=== this is come from [auth middleware] 
+    // (req.userId) <=== we create this custom property at [auth middleware] for
+    // save / store / tracking user id, that come from FrontEnd... 
 
-    // if user not found...
+    // if user-id/token not found...
     if (!req.userId) return res.json({ message: "Unauthenticated" });
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
 
-    // 🟩 find post by id...
+    // 🟩 find post by id, which post user want to like...
     const post = await PostModel.findById(id);
 
-    // 🟩 find index position of user id...
+    // 🟩 find index position of user id... each id is a user 
     const index = post.likes.findIndex(id => id === String(req.userId));
 
     // 🟩 if user index is -1, thats mean user is not present in likes array
@@ -180,7 +186,7 @@ export const likePost = async (req, res) => {
 
 
 export const commentPost = async (req, res) => {
-    
+
     const { id } = req.params;
     const { userComment } = req.body;
 

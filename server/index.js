@@ -27,6 +27,7 @@ mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnified
 
 
 // http://localhost:5000/posts
+// http://localhost:5000/users
 app.use('/posts', postRoutes);
 app.use('/users', userRoutes);
 // express middleware for using routes File...

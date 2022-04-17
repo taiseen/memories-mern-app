@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 const App = () => {
 
+  // read login user info from LocalStorage...
   const user = JSON.parse(localStorage.getItem('profile'));
 
   return (
@@ -12,8 +13,8 @@ const App = () => {
       <Container maxWidth="xl">
         <Navbar />
         <Routes>
-          
-          <Route path="/" element={<Navigate to='/posts' />} />
+
+          <Route path="/" element={<Home />} />
           <Route path="/posts" element={<Home />} />
           <Route path="/posts/search" element={<Home />} />
           <Route path="/posts/:id" element={<PostDetails />} />

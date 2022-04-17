@@ -12,8 +12,12 @@ const API = axios.create({ baseURL: 'http://localhost:5000' });
 // so by this process ==> BackEnd get specific header file... & base on that header do his logic...
 API.interceptors.request.use(req => {
 
-  if (localStorage.getItem('profile')) {
-    req.headers.authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
+  // 1st ==> get user token from LocalStorage, that server send to client...
+  const serverSendToken = localStorage.getItem('profile');
+
+  if (serverSendToken) {
+    // 2nd ==> send this token from LocalStorage into server for user id tracking... 
+    req.headers.authorization = `Bearer ${JSON.parse(serverSendToken).token}`;
   }
 
   return req;

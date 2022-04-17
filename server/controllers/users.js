@@ -8,13 +8,20 @@ import UserModel from '../models/userModel.js';
 // jwt ==> safe way to store the user in a browser for some period of time... 1h, 2h... 1W...
 // jwt ==> by creating token for user, track user by this token id...
 
+// UserModel ==> base on this model Object, create lots of instance of users..
+
 
 // ✅✅✅✅✅✅✅✅✅✅✅✅✅✅
 // Creating account fot - New User...
 // ✅✅✅✅✅✅✅✅✅✅✅✅✅✅
 export const signUp = async (req, res) => {
 
+    // How we get users input data from FrontEnd, at this file inside this function ?
+    // ans ==> when ever you have a [post] request... form FrontEnd...
+    // you get all the user input data through ==> req.body
+
     const { firstName, lastName, email, password, confirmPassword } = req.body;
+
 
     try {
 
@@ -30,23 +37,26 @@ export const signUp = async (req, res) => {
         // 🟥 Encrypted the users password for security... that no 1 can see normally
         const hashPassword = await bcrypt.hash(password, 12);
 
-        // 🟥 Creating a user & save into DataBase
+        // 🟥 Creating a new user & save into DataBase & get it into "result" object...
         const result = await UserModel.create(
             { name: `${firstName} ${lastName}`, email, password: hashPassword }
         );
 
-        // 🟥 Create a token form "result" user Object
-        // BackEnd create Token to send FrontEnd ==> for tracking 🧐 the user...
-        // token we create in Backend by the help of [jwt] (.sign() method)
-        // inside token, store information about current user
+        // 🟥 Create a token form "result" user Object that save into MongoDB...
+        // 🟥 BackEnd create Token to send FrontEnd ==> for tracking 🧐 the user...
+        // we create token at Backend by the help of [jwt] (.sign() method)
+        // inside token, store (id + email) information about current user...
+        // by this (id) we track user at FrontEnd...
         const token = jwt.sign(
-            { email: result.email, id: result._id },
-            process.env.AUTH_KEY,
-            { expiresIn: "1h" }
+            { id: result._id, email: result.email },
+            process.env.AUTH_KEY, // secret key for token creation 
+            { expiresIn: "1h" } // user logOut automatically after 1 Hour
         );
 
-        // sent this "token" to FrontEnd for track the user..
+        // sent this "result" object into FrontEnd for user info display...
+        // sent this "token" into FrontEnd for track login this user...
         res.status(200).json({ result, token });
+
 
     } catch (error) {
         res.status(500).json(error);
@@ -60,7 +70,12 @@ export const signUp = async (req, res) => {
 // 📌📌📌📌📌📌📌📌📌📌📌📌
 export const signIn = async (req, res) => {
 
+    // How we get users input data from FrontEnd, at this file inside this function ?
+    // ans ==> when ever you have a [post] request... form FrontEnd...
+    // you get all the user input data through ==> req.body
+
     const { email, password } = req.body;
+
 
     try {
 
@@ -78,6 +93,8 @@ export const signIn = async (req, res) => {
 
 
         // 🟥 old users password matching check...
+        // password ==> come from FrontEnd user input field...
+        // existingUser.password ==> user already present in our database with his password property...
         const isPassCorrect = await bcrypt.compare(password, existingUser.password);
         // if pass is ❗not match...
         if (!isPassCorrect) return res.status(400).json({ message: "Password dont match" });
@@ -89,16 +106,22 @@ export const signIn = async (req, res) => {
         // }
         // const token = jwt.sign(userInfo, process.env.AUTH_KEY, { expiresIn: "1h" });
 
+        // if the user is Exist in DataBase &
+        // if the user password is match with DataBase... 
+        // then get his JSON Web Token | that we send to FrontEnd 
+
         // 🟥 BackEnd create Token to send FrontEnd ==> for tracking 🧐 the user...
-        // token we create in Backend by the help of [jwt] (.sign() method)
-        // inside token, store information about current user
+        // we create token at Backend by the help of [jwt] (.sign() method)
+        // inside token, store (id + email) information about current user...
+        // by this (id) we track user at FrontEnd...
         const token = jwt.sign(
             { id: existingUser._id, email: existingUser.email },
-            process.env.AUTH_KEY,
-            { expiresIn: "1h" }
+            process.env.AUTH_KEY, // secret key for token creation 
+            { expiresIn: "1h" } // user logOut automatically after 1 Hour
         );
 
-        // sent this "token" to FrontEnd for track the user...
+        // sent this "result" object into FrontEnd for user info display...
+        // sent this "token" into FrontEnd for track login this user...
         res.status(200).json({ result: existingUser, token });
 
     } catch (error) {

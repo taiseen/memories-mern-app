@@ -11,25 +11,30 @@ import decode from 'jwt-decode';
 const Navbar = () => {
 
     // get user info from localStorage that server send as jwt(jsonWebToken)
-    const [logInUser, setLogInUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const getLogInUserInfo = JSON.parse(localStorage.getItem('profile'));
+
+    const [logInUser, setLogInUser] = useState(getLogInUserInfo);
     const dispatch = useDispatch();
-    const location = useLocation();
     const navigate = useNavigate();
+    const location = useLocation();
     const classes = useStyles();
 
+
+    // clear from LocalStorage +++ state variable +++ redirect into root component...
     const logout = () => {
         dispatch({ type: LOGOUT });
-
-        navigate('/auth');
-
         setLogInUser(null);
+        navigate('/auth');
     };
+
 
     const token = logInUser?.token;
 
+    // call this useEffect ==> when the url is change... (by [location] dependency) 
+    // reload this component after any change happen according to user... 
     useEffect(() => {
         // ger user token for automatic logout after some time 
-        
+
         // manual signUp >>> token checking, for auto logout after 1 hour...        
         if (token) {
             const decodedToken = decode(token);
@@ -38,9 +43,12 @@ const Navbar = () => {
         }
 
         // reload this component & set user info at JSX
-        setLogInUser(JSON.parse(localStorage.getItem('profile')));
+        setLogInUser(getLogInUserInfo);
         // if location change, ↕↕↕↕↕ reload this component again...↕↕↕↕↕
-    }, [token, logout, location]);
+    }, [token, getLogInUserInfo, location]);
+
+
+
 
 
     return (
@@ -70,18 +78,21 @@ const Navbar = () => {
                                     {logInUser?.result.name}
                                 </Typography>
 
+                                {/* ============= logOut JSX ============= */}
                                 <Button
-                                    onClick={logout}
                                     variant="contained"
                                     color="secondary"
+                                    onClick={logout}
                                     className={classes.logout} > Logout </Button>
                             </div>
                         ) : (
+                            // ============= logIn JSX ============= 
                             <Button
+                                // for login, send user into auth (registration) component...
                                 component={Link}
                                 to="/auth"
-                                variant="contained"
-                                color="primary"> Sign In </Button>
+                                color="primary"
+                                variant="contained" > Sign In </Button>
                         )
                 }
             </Toolbar>

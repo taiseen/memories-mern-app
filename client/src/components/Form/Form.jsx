@@ -31,17 +31,17 @@ const Form = ({ currentId, setCurrentId }) => {
   }, [post]);
 
 
-  let value = true;
+  var value = true;
+  // false ===> btn Open | Enable
+  // true ===> btn Close | Disable
   if (currentId !== null) {
     value = false;
-    // false ===> Open | Enable
   } else if (!imgbb.isSuccess) {
     value = false;
-    // false ===> Open | Enable
   } else {
     value = true;
-    // true ===> Close | Disable
   }
+
 
 
   // values send to the server... through the help of redux action creator...
@@ -176,11 +176,11 @@ const Form = ({ currentId, setCurrentId }) => {
           size='large'
           fullWidth
         >
-          Submit
+          {currentId ? 'Update' : 'Submit'}
         </Button>
 
         <Button
-          disabled={!postData.tags.length}
+          disabled={!postData.tags.length} 
           className={classes.buttonClear}
           variant='contained'
           color='secondary'

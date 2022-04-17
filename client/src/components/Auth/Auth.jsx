@@ -41,7 +41,7 @@ const SignUp = () => {
 
   // collect all input value's dynamically from user input fields...
   const handleChange = (e) => setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
-  
+
 
   // ######################################
   // Manual Login System (SignIn + SignUp)
@@ -104,29 +104,30 @@ const SignUp = () => {
             {
               isSignUp && (
                 <>
-                  <Input name="firstName" label="First Name" handleChange={handleChange} half />
-                  <Input name="lastName" label="Last Name" handleChange={handleChange} half />
+                  <Input name="firstName" label="First Name" handleChange={handleChange} half required />
+                  <Input name="lastName" label="Last Name" handleChange={handleChange} half required />
                 </>
               )
             }
 
-            <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
+            <Input name="email" label="Email Address" type="email" handleChange={handleChange} required />
             <Input name="password" label="Password" handleChange={handleChange}
-              type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
+              type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} required />
 
             {
               isSignUp &&
-              <Input type="password" name="confirmPassword" label="Repeat Password" handleChange={handleChange} />
+              <Input name="confirmPassword" label="Repeat Password" type="password" handleChange={handleChange} required />
             }
 
           </Grid>
 
 
-          <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+          <Button type="submit" variant="contained" color="primary" fullWidth className={classes.submit}>
             {isSignUp ? 'Sign Up' : 'Sign In'}
           </Button>
 
 
+          {/* for login by google | button */}
           <GoogleLogin
             clientId="16518181149-01jum6i83a2kkj3jk1s8mmbiq2hch8v5.apps.googleusercontent.com"
 
@@ -137,12 +138,12 @@ const SignUp = () => {
                   disabled={renderProps.disabled}
                   className={classes.googleButton}
                   startIcon={<Icon />}
-                  color="primary"
                   variant="contained"
+                  color="primary"
                   fullWidth
                 > Google Sign In </Button>
               )}
-
+            // our custom logic set in these function...
             onSuccess={googleSuccess}
             onFailure={googleError}
             cookiePolicy="single_host_origin"
@@ -151,6 +152,7 @@ const SignUp = () => {
 
           <Grid container justifyContent="center">
             <Grid item>
+              {/* button for switching between SignIn or SignUp */}
               <Button onClick={switchMode}>
                 {
                   isSignUp

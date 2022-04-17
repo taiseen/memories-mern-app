@@ -12,3 +12,5 @@ const UserModel = mongoose.model('UserInfo', userSchema);
 export default UserModel;
 
 // 'UserInfo' <== this name save as collection inside MongoDB
+
+// UserModel <== base on this model Object, create lots of instance of users..

@@ -31,6 +31,27 @@ git commit -am "all ==> OK"
 git push heroku master
 ```
 
+
+
+
+```
+MongoDB CRUD operation .methods() list by help of model object...
+
+Read all        ==> await PostModel.find() 
+Read one        ==> await PostModel.findById(id)
+Search          ==> await PostModel.find() 
+Create          ==> await PostModel.save()
+Update          ==> await PostModel.findByIdAndUpdate(id, post, {new: true})
+Delete          ==> await PostModel.findByIdAndRemove(id)
+Like            ==> await PostModel.findById(id) + .findByIdAndUpdate(id, post, {new: true})
+
+existingUser    ==> await UserModel.findOne({ email })
+newUserCreate   ==> await UserModel.create({ name, email, password })
+```
+
+
+
+
 ```
 CONNECTION_URL = mongodb+srv://USERNAME:PASS@sandbox.6vljy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 

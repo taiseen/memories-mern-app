@@ -12,14 +12,15 @@
 ## Features of app:
 1. Full CRUD operation
 2. Searching operation 
-3. Google auth login
-4. JSON Web Token for track user
-5. Pagination for data view
-6. Comment section for login user 
-7. MongoDB Connection
-8. use Redux for centrally data management
-9. Application can scalable
-10. Image file uploaded at imgbb.com
+3. Google OAuth login
+4. MongoDB Connection
+5. Application can scalable
+6. Pagination for data view
+7. JSON Web Token for track user
+8. Comment section for login user 
+9. Image file uploaded at imgbb.com
+10. User can Like own + others post
+11. use Redux for centrally data management
 
 
 [Google](https://console.cloud.google.com/apis/credentials?project=local-riders-308310) for login.
