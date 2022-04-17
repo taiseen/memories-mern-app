@@ -164,7 +164,7 @@ export const likePost = async (req, res) => {
     // 🟩 find post by id, which post user want to like...
     const post = await PostModel.findById(id);
 
-    // 🟩 find index position of user id... each id is a user 
+    // 🟩 find index position of user id... each id is a user
     const index = post.likes.findIndex(id => id === String(req.userId));
 
     // 🟩 if user index is -1, thats mean user is not present in likes array
