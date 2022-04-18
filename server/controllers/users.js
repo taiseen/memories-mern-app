@@ -55,6 +55,7 @@ export const signUp = async (req, res) => {
 
         // sent this "result" object into FrontEnd for user info display...
         // sent this "token" into FrontEnd for track login this user...
+        // after user signUp, he gets this "token" from user controller()
         res.status(200).json({ result, token });
 
 
@@ -122,6 +123,7 @@ export const signIn = async (req, res) => {
 
         // sent this "result" object into FrontEnd for user info display...
         // sent this "token" into FrontEnd for track login this user...
+        // after user signIn, he gets this "token" from user controller()
         res.status(200).json({ result: existingUser, token });
 
     } catch (error) {

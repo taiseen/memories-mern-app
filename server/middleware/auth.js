@@ -12,7 +12,10 @@ import jwt from "jsonwebtoken";
 //      that this is specific valid user or not!!!
 //      if valid user then ==> go to ==> next ==> controller...
 
-// where we use this auth middleware? ==> inside the router()
+// where we use this auth middleware function() ? ==> inside the router()
+
+// after user signUp/signIn, he gets specific token from user controller()
+// & for authentication we get that token & decode it here for verify user ID... 
 
 const auth = async (req, res, next) => {
 
@@ -26,7 +29,7 @@ const auth = async (req, res, next) => {
         // 2 kind of token ==> 1) google auth, 2) our custom token
         const isCustomAuth = token.length < 500;
 
-        // get the token data & stor into this variable...
+        // get the token data & stor into this variable ...
         let decodedData;
 
         // our custom auth system...
@@ -37,6 +40,7 @@ const auth = async (req, res, next) => {
             // our custom made req-Object property... (userId)
             // for track id by whole backend application
             // this (req.userId) is very important...
+            // ✅✅✅✅✅✅✅✅✅✅
             req.userId = decodedData?.id;
         } else {
             // google auth system... 🟨 in this case we don't need the secret key... 🔑

@@ -164,7 +164,7 @@ export const likePost = async (req, res) => {
     // 🟩 find post by id, which post user want to like...
     const post = await PostModel.findById(id);
 
-    // 🟩 find index position of user id... each id is a user
+    // 🟩 find by index position of user id... that user id already in Like array or Not...
     const index = post.likes.findIndex(id => id === String(req.userId));
 
     // 🟩 if user index is -1, thats mean user is not present in likes array
@@ -172,7 +172,7 @@ export const likePost = async (req, res) => {
         // add user id at likes array ==> by the help of auth middleware (req.userId)
         post.likes.push(req.userId);
     } else {
-        // remove user id form likes array 
+        // remove user id form likes array & keep all other users in like array...
         post.likes = post.likes.filter(id => id !== String(req.userId));
     }
 

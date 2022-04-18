@@ -43,6 +43,7 @@ Search          ==> await PostModel.find()
 Create          ==> await PostModel.save()
 Update          ==> await PostModel.findByIdAndUpdate(id, post, {new: true})
 Delete          ==> await PostModel.findByIdAndRemove(id)
+Comment         ==> await PostModel.findById(id) + .findByIdAndUpdate(id, post, {new: true})
 Like            ==> await PostModel.findById(id) + .findByIdAndUpdate(id, post, {new: true})
 
 existingUser    ==> await UserModel.findOne({ email })
