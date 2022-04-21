@@ -33,7 +33,12 @@ export default makeStyles((theme) => ({
         },
     },
     loadingPaper: {
-        display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px', borderRadius: '15px', height: '39vh',
+        padding: '20px',
+        height: '39vh',
+        borderRadius: '15px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     commentsOuterContainer: {
         display: 'flex',

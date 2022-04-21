@@ -8,7 +8,7 @@ import useStyles from './styles';
 import moment from 'moment';
 
 
-const Post = () => {
+const PostDetails = () => {
 
   const { post, posts, isLoading } = useSelector(state => state.posts);
   const dispatch = useDispatch();
@@ -19,7 +19,10 @@ const Post = () => {
 
   // get only single post base on ID, which click by user at UI...
   useEffect(() => {
+
+    // redux - reducer ==> action creator call here...
     dispatch(getPost(id));
+
   }, [dispatch, id]);
 
 
@@ -31,11 +34,11 @@ const Post = () => {
   }, [dispatch, post]);
 
 
+  // open this id specific post... by programmatically navigate...
+  const openPost = _id => navigate(`/posts/${_id}`);
+
+  // if no post have ==> return null
   if (!post) return null;
-
-
-  const openPost = (_id) => navigate(`/posts/${_id}`);
-
 
   if (isLoading) {
     return (
@@ -45,41 +48,33 @@ const Post = () => {
     );
   }
 
-
+  // recommended post related to current post...
   const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
-
 
   const { title, message, name, tags, createdAt, imgUrl } = post;
 
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
 
+      {/* Post Details - UI Section */}
       <div className={classes.card}>
-
         <div className={classes.section}>
-
-          <Typography variant="h3" component="h2">
-            {title}
-          </Typography>
-
+          <Typography variant="h3" component="h2"> {title} </Typography>
           <Typography gutterBottom variant="h6" color="textSecondary" component="h2">
             {tags.map((tag) => `#${tag} `)}
           </Typography>
-
           <Typography gutterBottom variant="body1" component="p">{message}</Typography>
-
           <Typography variant="h6">Created by: {name}</Typography>
-
           <Typography variant="body1">{moment(createdAt).fromNow()}</Typography>
-
           <Divider style={{ margin: '20px 0' }} />
 
           <Typography variant="body1"><strong>Realtime Chat - coming soon!</strong></Typography>
           <Divider style={{ margin: '20px 0' }} />
-          {/* <Typography variant="body1"><strong>Comments - coming soon!</strong></Typography> */}
-          <CommentSection post={post} />
-          <Divider style={{ margin: '20px 0' }} />
 
+          {/* Comment Section call from here */}
+          <CommentSection post={post} />
+
+          <Divider style={{ margin: '20px 0' }} />
         </div>
 
         <div className={classes.imageSection}>
@@ -89,10 +84,11 @@ const Post = () => {
             src={imgUrl || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'}
           />
         </div>
-
       </div>
 
-      {!!recommendedPosts.length &&
+
+      { // Links of Related Posts...
+        !!recommendedPosts.length &&
         (
           <div className={classes.section}>
 
@@ -125,4 +121,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default PostDetails;

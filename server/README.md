@@ -33,23 +33,22 @@ git push heroku master
 
 
 
-
 ```
-MongoDB CRUD operation .methods() list by help of model object...
+MongoDB CRUD operation .methods() list...
+called by the help of model object... ( PostModel + UserModel )
 
-Read all        ==> await PostModel.find() 
-Read one        ==> await PostModel.findById(id)
-Search          ==> await PostModel.find() 
-Create          ==> await PostModel.save()
-Update          ==> await PostModel.findByIdAndUpdate(id, post, {new: true})
-Delete          ==> await PostModel.findByIdAndRemove(id)
-Comment         ==> await PostModel.findById(id) + .findByIdAndUpdate(id, post, {new: true})
-Like            ==> await PostModel.findById(id) + .findByIdAndUpdate(id, post, {new: true})
+Read all        ==> .find() 
+Read one        ==> .findById(id)
+Search          ==> .find() 
+Create          ==> .save()
+Update          ==> .findByIdAndUpdate(id, post, {new: true})
+Delete          ==> .findByIdAndRemove(id)
+Comment         ==> .findById(id) + .findByIdAndUpdate(id, post, {new: true})
+Like            ==> .findById(id) + .findByIdAndUpdate(id, post, {new: true})
 
-existingUser    ==> await UserModel.findOne({ email })
-newUserCreate   ==> await UserModel.create({ name, email, password })
+existingUser    ==> .findOne({ email })
+newUserCreate   ==> .create({ name, email, password })
 ```
-
 
 
 

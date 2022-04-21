@@ -106,7 +106,7 @@ const Form = ({ currentId, setCurrentId }) => {
     dispatch(imageUpload(imageData));
   }
 
-  console.log(imgbb?.imgbb?.deleteUrl);
+  console.log('img d.link ', imgbb?.imgbb?.deleteUrl);
 
 
   return (
@@ -180,7 +180,7 @@ const Form = ({ currentId, setCurrentId }) => {
         </Button>
 
         <Button
-          disabled={!postData.tags.length} 
+          disabled={!postData.tags.length}
           className={classes.buttonClear}
           variant='contained'
           color='secondary'

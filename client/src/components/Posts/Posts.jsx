@@ -6,13 +6,14 @@ import { Grid, CircularProgress } from '@material-ui/core';
 
 const Posts = ({ setCurrentId }) => {
 
-  // redux read operation... get all posts from reducer | redux global store...
+  // redux global store...
+  // redux read operation... get all posts | pagination post | search post from reducer 
   const { posts, isLoading } = useSelector(state => state.posts);
 
   const classes = useStyles();
 
 
-  if (!posts.length && !isLoading) return "No Post Found...";
+  if (!posts.length && !isLoading) return <h1 style={{ color: 'orange' }}>No Post Found...</h1>;
 
 
   return (

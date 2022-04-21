@@ -23,7 +23,8 @@
 11. use Redux for centrally data management
 
 
-[Google](https://console.cloud.google.com/apis/credentials?project=local-riders-308310) for login.
+[Google OAuth](https://console.cloud.google.com/apis/credentials?project=local-riders-308310) for login.
+
 ```
 client side ==> yarn + yarn start
 server side ==> yarn + yarn start 

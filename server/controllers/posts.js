@@ -15,8 +15,8 @@ export const getPost = async (req, res) => {
     }
 }
 
-
-export const getPosts = async (req, res) => {
+// get posts by pagination click...
+export const getPaginationPosts = async (req, res) => {
 
     const { pageNumber } = req.query;
 
@@ -52,17 +52,23 @@ export const getPosts = async (req, res) => {
 // ###### because by (tags) show user ==> also you like these post...
 export const getPostsBySearch = async (req, res) => {
 
+    // extract users query variable from URL
     const { searchQuery, tags } = req.query;
 
     try {
-        const title = new RegExp(searchQuery, 'i');
+
+        const title = new RegExp(searchQuery, 'i'); // ignore case sensitivity 
+
         const searchingPost = await PostModel.find(
             {
+                // find by {title} <== OR ==> find by {tags}
                 $or: [
                     { title },
                     {
-                        tags:
-                            { $in: tags.split(',') }
+                        tags: // in this tags, values are present with comma
+                        {
+                            $in: tags.split(',')
+                        }
                     }
                 ]
             }
@@ -198,7 +204,7 @@ export const commentPost = async (req, res) => {
         // 🟩 2nd ==> after finding that existing post, push this user comment inside that post document
         post.comments.push(userComment);
 
-        // 🟩 3rd ==> after pushing the comment into targeted post, again update that post...
+        // 🟩 3rd ==> after pushing the comment into targeted post, again update that specific post...
         const updatedPost = await PostModel.findByIdAndUpdate(id, post, { new: true });
 
         // send this data to frontEnd...

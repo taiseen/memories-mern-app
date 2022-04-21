@@ -1,4 +1,3 @@
-
 import { Container, Grow, Grid, AppBar, TextField, Button, Paper } from '@material-ui/core';
 import { getPostsBySearch } from '../../reduxStore/actions/posts';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -43,8 +42,14 @@ const Home = () => {
 
     // run this ==> when user click search button
     const searchPost = () => {
+
         if (search.trim() || tags) {
+            // we can not send [tag array] by the browser URL...
+            // so that we convert [tag array] into a string by the help of .join(',') method...
             dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
+
+            // display this path info at browser URL 
+            // & by this generated URL link, you can share this URL address with others...
             navigate(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
         } else {
             navigate('/');
@@ -115,9 +120,12 @@ const Home = () => {
                         <Form currentId={currentId} setCurrentId={setCurrentId} />
 
 
-                        {/* Pagination ==> Section Display From Here... */}
-                        {
-                            (!searchQuery && !tags.length) &&
+                        {   // Pagination ==> Section Display From Here...
+                            // if we dont have search query 
+                            // if we dont have search by tag... then show pagination
+                            // so if we have search query || tag ==> hide pagination 
+                            !searchQuery &&
+                            !tags.length &&
                             (
                                 <Paper className={classes.pagination} elevation={6}>
                                     <Pagination page={page} />

@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 const App = () => {
 
-  // read login user info from LocalStorage...
+  // read login user info from LocalStorage that Store by Redux...
   const user = JSON.parse(localStorage.getItem('profile'));
 
   return (

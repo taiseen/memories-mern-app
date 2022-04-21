@@ -47,12 +47,12 @@ export const commentPost = (userComment, postId) => async (dispatch) => {
 
 
 // this (pageNumber) <== is integer value, link: 1 | 2 | 3 | 4 | ......
-export const getAllPost = (pageNumber) => async (dispatch) => {
+export const getPaginationPost = (pageNumber) => async (dispatch) => {
 
     try {
         dispatch({ type: LOADING_START });
         // 🟩 1st ==> server call ==> for get all posts
-        const { data } = await api.getAllPost(pageNumber);
+        const { data } = await api.getPagPost(pageNumber);
 
         // 🟩 2nd ==> send (data) into Redux global store | post reducer 
         dispatch({ type: FETCH_ALL, payload: data });

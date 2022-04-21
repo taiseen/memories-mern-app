@@ -22,8 +22,13 @@ const Navbar = () => {
 
     // clear from LocalStorage +++ state variable +++ redirect into root component...
     const logout = () => {
+
+        // clear from localStorage
         dispatch({ type: LOGOUT });
+
+        // clear user Object
         setLogInUser(null);
+        
         navigate('/auth');
     };
 

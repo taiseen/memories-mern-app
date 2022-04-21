@@ -13,16 +13,19 @@ const CommentSection = ({ post }) => {
     const commentsRef = useRef();
     const dispatch = useDispatch();
 
+
+    // who is creating this specific comment...?
+    // so 1st lets grab the user from localStorage...
     // get the current login user info, form LocalStorage...
     // & use it for ==> comment identification... that who is commenting?
-    const user = JSON.parse(localStorage.getItem('profile'));
+    const user = JSON.parse(localStorage.getItem('profile')); // read operation from LocalStorage...
 
     const handleComment = async () => {
 
         // 1) set user name : user comment, 
-        // 2) this comment belong to which post? 
-        //                                                          1)                       2)
-        const newComments = await dispatch(commentPost(`${user?.result?.name}: ${comment}`, post._id));
+        // 2) this comment belong to which post? ==>  post._id
+        const userComment = `${user?.result?.name}: ${comment}`; // 1
+        const newComments = await dispatch(commentPost(userComment, post._id)); // 2
 
         // live update comment at current page...
         setComments(newComments);
@@ -38,7 +41,7 @@ const CommentSection = ({ post }) => {
     // handle user enter button...
     const handleKeyPress = (e) => {
         if (e.keyCode === 13) {
-            // user press enter ==> call this search function...
+            // when user press enter ==> call this comment function...
             handleComment();
         }
     };
@@ -52,14 +55,17 @@ const CommentSection = ({ post }) => {
 
                     <Typography gutterBottom variant="h6">Comments</Typography>
 
-                    {
+                    { // Loop through all over the posts... about a specific post...
                         comments?.map((comment, i) => (
                             <Typography
                                 key={i}
                                 gutterBottom
                                 variant="subtitle1"
                             >
+                                {/* Print User Name */}
                                 <strong>{comment.split(': ')[0]} : </strong>
+
+                                {/* Print User Comment */}
                                 {comment.split(':')[1]}
                             </Typography>
                         ))
@@ -71,39 +77,45 @@ const CommentSection = ({ post }) => {
                 </div>
 
 
-                {
-                    user?.result?.name &&
-                    (
-                        <div style={{ width: '70%' }}>
+                { // if user login... then only display || show this comment box... for commenting...
+                    user?.result?.name
+                        ? (
+                            <div style={{ width: '70%' }}>
 
-                            <Typography gutterBottom variant="h6">Write a comment</Typography>
+                                <Typography gutterBottom variant="h6">Write a comment</Typography>
 
-                            <TextField
-                                fullWidth
-                                multiline
-                                rows={4}
-                                variant="outlined"
-                                label="Comment"
-                                value={comment}
-                                onChange={(e) => setComment(e.target.value)}
-                                onKeyDown={handleKeyPress}
-                            />
+                                <TextField
+                                    fullWidth
+                                    multiline
+                                    rows={4}
+                                    variant="outlined"
+                                    label="Comment"
+                                    value={comment}
+                                    onChange={(e) => setComment(e.target.value)}
+                                    onKeyDown={handleKeyPress}
+                                />
 
-                            <br />
+                                <br />
 
-                            <Button
-                                fullWidth
-                                color="primary"
-                                variant="contained"
-                                style={{ marginTop: '10px' }}
-                                disabled={!comment.length}
-                                onClick={handleComment}
-                            >
-                                Comment
-                            </Button>
+                                <Button
+                                    fullWidth
+                                    color="primary"
+                                    variant="contained"
+                                    style={{ marginTop: '10px' }}
+                                    disabled={!comment.length}
+                                    onClick={handleComment}
+                                >
+                                    Comment
+                                </Button>
 
-                        </div>
-                    )
+                            </div>
+                        ) : (
+                            <div style={{ width: '70%' }}>
+                                <Typography gutterBottom variant="h6" color='secondary'>
+                                    For comment... Please Login...
+                                </Typography>
+                            </div>
+                        )
                 }
 
             </div>

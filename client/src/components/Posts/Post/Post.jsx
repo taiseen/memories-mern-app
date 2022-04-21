@@ -3,10 +3,10 @@ import { deletePost, likePost, imageDelete } from '../../../reduxStore/actions/p
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import DeleteIcon from '@material-ui/icons/Delete';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import DeleteIcon from '@material-ui/icons/Delete';
 import useStyles from './styles';
 import moment from 'moment';
 
@@ -27,8 +27,26 @@ const Post = ({ post, setCurrentId }) => {
 
   const hasLikedPost = post.likes.find(like => like === userId);
 
-  // go to React Router for navigate this path... with post id
+  // go to React Router for navigate this path... with post id & open a new UI
   const openPost = () => navigate(`/posts/${post._id}`);
+
+
+  const handleClick = async () => {
+
+    // this is happen at backend | some time need
+    await dispatch(likePost(_id));
+
+    // this is happen in frontend | no time need
+    if (hasLikedPost) {
+      // remove userId from like array
+      setLikes(post.likes.filter(id => id !== userId));
+    } else {
+      // add userId inside like array
+      // spread all previous data & add new one...
+      setLikes([...post.likes, userId]);
+    }
+  }
+
 
   const Likes = () => {
     if (likes.length > 0) {
@@ -53,22 +71,16 @@ const Post = ({ post, setCurrentId }) => {
     return <><ThumbUpAltOutlined fontSize="small" />&nbsp;Like</>;
   };
 
-  const handleClick = async () => {
-
-    await dispatch(likePost(_id));
-
-    if (hasLikedPost) {
-      setLikes(post.likes.filter(id => id !== userId));
-    } else {
-      setLikes([...post.likes, userId]);
-    }
-  }
 
   return (
     <Card className={classes.card} raised={true} elevation={6}>
 
-      <ButtonBase className={classes.cardAction} onClick={openPost} component="span"
-        name="test">
+      <ButtonBase
+        className={classes.cardAction}
+        onClick={openPost}
+        component="span"
+        name="test"
+      >
 
         <CardMedia className={classes.media} title={title}
           image={imgUrl ||
@@ -103,7 +115,6 @@ const Post = ({ post, setCurrentId }) => {
         }
 
 
-
         <div className={classes.details}>
           <Typography variant="body2" color="textSecondary" component="h2">
             {tags.map(tag => `#${tag} `)}
@@ -111,7 +122,9 @@ const Post = ({ post, setCurrentId }) => {
         </div>
 
 
-        <Typography className={classes.title} gutterBottom variant="h5" component="h2">{title}</Typography>
+        <Typography className={classes.title} gutterBottom variant="h5" component="h2">
+          {title}
+        </Typography>
 
 
         <CardContent className={classes.message} >
@@ -123,11 +136,17 @@ const Post = ({ post, setCurrentId }) => {
       </ButtonBase>
 
 
+
+      {/* #######################################
+          Like + Delete button UI start from here
+          ####################################### */}
       <CardActions className={classes.cardActions}>
 
         {/* if no User Login at system, disable Like Button... 👍👍👍*/}
         <Button size="small" color="primary" disabled={!user?.result} onClick={handleClick}>
+
           <Likes />
+
         </Button>
 
 
