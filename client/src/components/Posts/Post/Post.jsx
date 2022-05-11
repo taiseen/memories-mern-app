@@ -11,6 +11,7 @@ import useStyles from './styles';
 import moment from 'moment';
 
 
+// this component is call from 🟨 Posts.js <Component /> 🟨
 const Post = ({ post, setCurrentId }) => {
 
   const classes = useStyles();

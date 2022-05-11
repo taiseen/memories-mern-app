@@ -1,9 +1,11 @@
-import React from 'react'
-import Post from './Post/Post'
-import useStyles from './styles';
-import { useSelector } from 'react-redux';
 import { Grid, CircularProgress } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import useStyles from './styles';
+import Post from './Post/Post'
+import React from 'react'
 
+
+// this component is call from 🟨 Home.js <Component /> 🟨
 const Posts = ({ setCurrentId }) => {
 
   // redux global store...

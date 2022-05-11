@@ -20,6 +20,8 @@ const initialState = {
 };
 
 
+// this component is call from 🟨 App.js <Component /> 🟨
+// by the help of React <Router>
 const SignUp = () => {
 
   const [userInfo, setUserInfo] = useState(initialState);

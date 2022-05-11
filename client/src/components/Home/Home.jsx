@@ -13,6 +13,9 @@ function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
 
+
+// this component is call from 🟨 App.js <Component /> 🟨
+// by the help of React <Router>
 const Home = () => {
 
     const [currentId, setCurrentId] = useState(null);

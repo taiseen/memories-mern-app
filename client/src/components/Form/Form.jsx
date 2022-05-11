@@ -6,8 +6,10 @@ import { useEffect, useState } from 'react';
 // import FileBase from 'react-file-base64';
 import useStyles from './styles';
 
-// get the current id
+
+// this component is call from 🟨 Home.js <Component /> 🟨
 const Form = ({ currentId, setCurrentId }) => {
+  // get the current id
 
   const classes = useStyles();
   const dispatch = useDispatch();

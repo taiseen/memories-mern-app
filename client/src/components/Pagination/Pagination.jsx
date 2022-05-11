@@ -1,12 +1,12 @@
+import { getPaginationPost } from '../../reduxStore/actions/posts';
 import { Pagination, PaginationItem } from '@material-ui/lab';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPaginationPost } from '../../reduxStore/actions/posts';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import useStyles from './styles';
 
 
-
+// this component is call from 🟨 Home.js <Component /> 🟨
 const Paginate = ({ page }) => {
 
     const classes = useStyles();

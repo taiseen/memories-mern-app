@@ -8,6 +8,8 @@ import useStyles from './styles';
 import moment from 'moment';
 
 
+// this component is call from 🟨 App.js <Component /> 🟨
+// by the help of React <Router>
 const PostDetails = () => {
 
   const { post, posts, isLoading } = useSelector(state => state.posts);

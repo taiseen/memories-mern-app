@@ -3,11 +3,14 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { LOGOUT } from '../../constants/actionTypes';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import memories from '../../assets/memories.png';
 import memoriesText from '../../assets/memoriesText.png';
+import memories from '../../assets/memories.png';
 import useStyles from './styles';
 import decode from 'jwt-decode';
 
+
+// this component is call from 🟨 App.js <Component /> 🟨
+// by the help of React <Router>
 const Navbar = () => {
 
     // get user info from localStorage that server send as jwt(jsonWebToken)

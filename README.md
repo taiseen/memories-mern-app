@@ -1,12 +1,10 @@
-31 March 2022 
+31 - Mar - 2022 
 
 # Moments App 
 
 ## Material UI + React + Redux + NodeJs + MongoDB (Atlas)
 
 # [Frontend](https://memories-app-bd.netlify.app) | [Backend](https://memories-app-bd.herokuapp.com/) 
-
-<br/>
 
 
 ## Features of app:
@@ -30,7 +28,7 @@ client side ==> yarn + yarn start
 server side ==> yarn + yarn start 
 ```
 
-# Client Site ==> Dependencies...
+# Client Site Dependencies...
 
 |No| Package Installs       | Usage of                                          |
 |--|------------------------|---------------------------------------------------|
@@ -52,7 +50,7 @@ server side ==> yarn + yarn start
 <br/>
 
 
-# Server Site ==> Dependencies...
+# Server Site Dependencies...
 
 |No| Package Installs       | Use for                                       |
 |--|------------------------|-----------------------------------------------|
