@@ -18,19 +18,20 @@ app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors());
 
 
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-    console.log('Server Start on port :', PORT, '🟩');
-    mongoDB();
-});
-
 
 // http://localhost:5000/posts
 // http://localhost:5000/users
 app.use('/posts', postRoutes);
 app.use('/users', userRoutes);
 // express middleware for using routes File...
+
+
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log('Server Start on port :', PORT, '🟩');
+    mongoDB();
+});
 
 
 
@@ -50,7 +51,7 @@ const welcomeMessage = (req, res) => {
 
             h1{
                 width         : max-content;
-                margin        : 50px auto 00px; 
+                margin        : 40px auto 00px; 
                 padding       : 20px 30px 24px;
                 font-family   : 'Nunito', sans-serif;
                 font-size     : 42px;
@@ -60,8 +61,8 @@ const welcomeMessage = (req, res) => {
             }
 
             img{
-                width  : 850px;
-                height : 850px;
+                width  : 750px;
+                height : 750px;
             }
         </style>
     </head>
@@ -73,15 +74,3 @@ const welcomeMessage = (req, res) => {
     `);
 }
 app.get('/', welcomeMessage);
-
-
-
-
-// MongoDB DataBase Connections
-//     process.env.MONGODB_URI,
-//     {
-//         useNewUrlParser: true,
-//         useUnifiedTopology: true
-//     })
-//     .then(() => app.listen(PORT, () => console.log('Server running on port: ' + PORT + ' 🟨')))
-//     .catch(error => console.log('Error Happen ===> ', error));

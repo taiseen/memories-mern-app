@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import reducers from './reduxStore/reducers';
 import thunk from 'redux-thunk';
 import App from './App';
-import './index.css';
+import './style/index.css';
 
 
 const rootElement = document.getElementById("root");

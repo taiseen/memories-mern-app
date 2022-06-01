@@ -23,7 +23,7 @@ heroku login
 
 git init
 git add .
-git commit -am "all ==> OK"
+git commit -am
 
 1st time: heroku git:remote -a memories-app-bd
 2nd time: heroku git:clone -a memories-app-bd 

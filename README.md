@@ -1,34 +1,47 @@
-31 - Mar - 2022 
+<img src="./client/src/assets/readme.png" style='width:180px' align="right" />
 
-# Moments App 
+> 31 - Mar - 2022 
 
-## Material UI + React + Redux + NodeJs + MongoDB (Atlas)
+# Memories | MERN App
 
-# [Frontend](https://memories-app-bd.netlify.app) | [Backend](https://memories-app-bd.herokuapp.com/) 
+# [Frontend][client] | [Backend][server]
 
+## Stack Use:
+|No| Stack           | 
+|--|-----------------|
+| 1| Material UI     | 
+| 2| React           | 
+| 3| Redux           | 
+| 4| Node-Js         |
+| 5| Express-Js      |
+| 6| MongoDB (Atlas) |
 
-## Features of app:
-1. Full CRUD operation
-2. Searching operation 
-3. Google OAuth login
-4. MongoDB Connection
-5. Application can scalable
-6. Pagination for data view
-7. JSON Web Token for track user
-8. Comment section for login user 
-9. Image file uploaded at imgbb.com
-10. User can Like own + others post
-11. use Redux for centrally data management
+<br />
 
+## Learning context by developing this application:
+|No| Context learn by building this project...      | 
+|--|------------------------------------------------|
+| 1| Project Structure                              | 
+| 2| Full CRUD operation                            | 
+| 3| Searching operation                            | 
+| 4| Google OAuth login                             |
+| 5| MongoDB Connection                             |
+| 6| Application can scalable                       |
+| 7| Pagination for data view                       |
+| 8| JSON Web Token for track user                  |
+| 9| Comment section for login user                 |
+|10| User can Like own + others post                |
+|11| Role Base Access Control - `RBAC`              |
+|12| Image file uploaded at imgbb.com               |
+|13| use Redux for centrally data management        |
 
-[Google OAuth](https://console.cloud.google.com/apis/credentials?project=local-riders-308310) for login.
 
 ```
 client side ==> yarn + yarn start
 server side ==> yarn + yarn start 
 ```
 
-# Client Site Dependencies...
+# Client | side dependencies...
 
 |No| Package Installs       | Usage of                                          |
 |--|------------------------|---------------------------------------------------|
@@ -46,11 +59,13 @@ server side ==> yarn + yarn start
 |12| yarn add `@material-ui/icons`  | icon's for designing UI                   |
 |13| yarn add `@material-ui/chip-input` | a chip input field using Material-UI  |
 
+[SVG][bg-res] for background. <br/>
+[Google OAuth][g-auth] for login.
 
 <br/>
 
 
-# Server Site Dependencies...
+# Server | side dependencies...
 
 |No| Package Installs       | Use for                                       |
 |--|------------------------|-----------------------------------------------|
@@ -64,4 +79,11 @@ server side ==> yarn + yarn start
 |8 | yarn add `jsonwebtoken`| share security information between two parties|
 
 
-Background Resource : https://www.svgbackgrounds.com
+
+
+
+[client]: https://memories-app-bd.netlify.app
+[server]: https://memories-app-bd.herokuapp.com
+
+[bg-res]: https://www.svgbackgrounds.com
+[g-auth]: https://console.cloud.google.com/apis/credentials?project=local-riders-308310
